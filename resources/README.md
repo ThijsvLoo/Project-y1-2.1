@@ -1,4 +1,4 @@
 #Resources
 
-Contains all the images, music, and the likes.
-No code in here.
+Contains all the images, music, and the likes. \n
+No code in here. \n
