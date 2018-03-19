@@ -8,9 +8,9 @@ public class Assets {
     public static BufferedImage[] ball;
 
     public static void init(){
-        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("./sprite.png")); //Link to the spriteSheet
-        SpriteSheet golfsheet = new SpriteSheet(ImageLoader.loadImage("./golfball.png")); //Link to golf ball sheet
-//Cropping every unit from the sprite sheet
+        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("../resources/sprite.png")); //Link to the spriteSheet
+        SpriteSheet golfsheet = new SpriteSheet(ImageLoader.loadImage("../resources/golfball.png")); //Link to golf ball sheet
+        //Cropping every unit from the sprite sheet
         sand=sheet.crop(0,0,width,height);
         grass=sheet.crop(width,0,width,height);
         water=sheet.crop(width*2,0,width,height);
