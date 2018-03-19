@@ -11,6 +11,8 @@ public class Game implements Runnable {
     private boolean running = false;
     public String title;
 
+    public int test = 0;
+
     private Thread thread;
     //Test
     Assets assets = new Assets();
@@ -29,11 +31,9 @@ public class Game implements Runnable {
     private void init(){
         display = new Display(title,width,height);
         Assets.init();
-
     }
 
     private void tick(){
-
     }
 
     private void render(){
@@ -45,9 +45,8 @@ public class Game implements Runnable {
         g = bs.getDrawGraphics();
         g.clearRect(0,0,width,height);                      //Clearing the screen before we start drawing
         //Draw Start
-
-        g.drawImage(assets.grass,0,0,32,32,null);
-        g.drawImage(assets.water,32,0,32,32,null);
+        g.drawImage(assets.grass,0,0,Assets.width,Assets.height,null);
+        g.drawImage(assets.water,32,0,Assets.width,Assets.height,null);
 
         //Draw end
         bs.show();
