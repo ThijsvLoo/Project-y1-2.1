@@ -1,6 +1,12 @@
+import java.awt.*;
+
 public class Launcher {
     public static void main(String[] args){
-        Game game= new Game("Golf Game",80,80);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Game game= new Game("Golf Game",screenSize.width,screenSize.height);
         game.start();
+
     }
+
+
 }
