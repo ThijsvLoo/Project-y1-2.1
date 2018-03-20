@@ -9,7 +9,7 @@ public class Tile {
     public static Tile sandTile = new Sand(1);
     public static Tile waterTile = new Water(2);
     //CLASS
-    public static final int TILE_WIDTH=16,TILE_HEIGHT=16;
+    public static final int TILE_WIDTH=64,TILE_HEIGHT=64;
 
     protected BufferedImage texture;
     protected final int id;
