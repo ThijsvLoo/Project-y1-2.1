@@ -7,6 +7,9 @@ public class Display {
     private Canvas canvas;
     private String title;
     private int width,height;
+
+    private boolean testingGit = true 
+    
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 
