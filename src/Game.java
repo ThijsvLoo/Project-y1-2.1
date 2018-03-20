@@ -11,6 +11,8 @@ public class Game implements Runnable {
     private boolean running = false;
     public String title;
 
+    private nanos_Per_Second = 1000000000;
+
     private Thread thread;
     public State gameState;
     //Test
@@ -66,7 +68,7 @@ public class Game implements Runnable {
         init();
 
         int fps=60;                                 //Setting fps limit
-        double timePerTick=1000000000/fps;          //Maximum amount of time we have to execute the methods in order to achieve those 60 fps
+        double timePerTick = nanos_Per_Second/fps;          //Maximum amount of time we have to execute the methods in order to achieve those 60 fps
         double delta=0;                             //Amount of time we have until we call the tick and render method
         long now;
         long lastTime=System.nanoTime();
