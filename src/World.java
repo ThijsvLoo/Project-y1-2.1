@@ -6,7 +6,7 @@ public class World {
     private int spawnX,spawnY;
     private int[][] tiles;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private EntityManager entityManager;
+    private Entity.Manager entityManager;
 
     public World(String path){
         loadWorld(path);
