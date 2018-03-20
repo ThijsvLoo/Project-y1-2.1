@@ -1,5 +1,7 @@
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public abstract class Entity {
 
@@ -21,36 +23,72 @@ public abstract class Entity {
 
     //Add Collision
 
-    //Getters and Setters
-    public float getX() {
-        return x;
-    }
+    class Manager {
 
-    public void setX(float x) {
-        this.x = x;
-    }
+       /* private Handler handler;
+        private Ball ball;
+        private ArrayList<Entity> entities;
+        private Comparator<Entity> renderSorter = new Comparator<Entity>() {
 
-    public float getY() {
-        return y;
-    }
+            @Override
+            public int compare(Entity a, Entity b) {
+                if((a.getY()+a.getHeight())<(b.getY()+b.getHeight())) {return -1;}
+                return 1;
+            }
 
-    public void setY(float y) {
-        this.y = y;
-    }
+        };
 
-    public int getWidth() {
-        return width;
-    }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
+        public Manager(Handler handler,Ball ball) {
+            this.handler=handler;
+            this.ball=ball;
+            entities = new ArrayList<Entity>();
+            addEntity(ball);
+        }
 
-    public int getHeight() {
-        return height;
-    }
+        public void tick() {
+            for(int i =0;i<entities.size();i++) {
+                Entity e = entities.get(i);
+                e.tick();
+            }
+        }
 
-    public void setHeight(int height) {
-        this.height = height;
+        public void render(Graphics g) {
+            for(Entity e : entities) {
+                e.render(g);
+            }
+            entities.sort(renderSorter);
+        }
+
+        public void addEntity(Entity e) {
+            entities.add(e);
+        }
+
+        public Handler getHandler() {
+            return handler;
+        }
+
+        public void setHandler(Handler handler) {
+            this.handler = handler;
+        }
+
+        public Ball getBall() {
+            return ball;
+        }
+
+        public void setBall(Ball ball) {
+            this.ball = ball;
+        }
+
+        public ArrayList<Entity> getEntities() {
+            return entities;
+        }
+
+        public void setEntities(ArrayList<Entity> entities) {
+            this.entities = entities;
+        }
+
+    */
+
     }
 }

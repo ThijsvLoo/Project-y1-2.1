@@ -8,8 +8,8 @@ public class Assets {
     public static BufferedImage[] ball;
 
     public static void init(){
-        SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("../resources/sprite.png")); //Link to the spriteSheet
-        SpriteSheet golfsheet = new SpriteSheet(ImageLoader.loadImage("../resources/golfball.png")); //Link to golf ball sheet
+        Util.SpriteSheet sheet = new Util.SpriteSheet(Util.ImageLoader.loadImage("../resources/sprite.png")); //Link to the spriteSheet
+        Util.SpriteSheet golfsheet = new Util.SpriteSheet(Util.ImageLoader.loadImage("../resources/golfball.png")); //Link to golf ball sheet
         //Cropping every unit from the sprite sheet
         sand=sheet.crop(0,0,width,height);
         grass=sheet.crop(width,0,width,height);

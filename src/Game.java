@@ -23,7 +23,7 @@ public class Game implements Runnable {
         this.title=title;
         this.width=width;
         this.height=height;
-        display =new Display(title,width,height);
+        display = new Display(title,width,height);
     }
 
     //The initialization
