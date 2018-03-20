@@ -8,8 +8,8 @@ public class Display {
     private String title;
     private int width,height;
 
-    private boolean testingGit = true 
     
+
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 
