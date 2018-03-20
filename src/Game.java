@@ -11,9 +11,8 @@ public class Game implements Runnable {
     private boolean running = false;
     public String title;
 
-    public int test = 0;
-
     private Thread thread;
+    public State gameState;
     //Test
     Assets assets = new Assets();
 
@@ -31,9 +30,16 @@ public class Game implements Runnable {
     private void init(){
         display = new Display(title,width,height);
         Assets.init();
+
+        gameState=new GameState();
+        State.setState(gameState);
+
     }
 
     private void tick(){
+        if(State.getState() !=null) {
+            State.getState().tick();                //If our state is not null(we have a state menu/game/etc) then we call the method tick
+        }
     }
 
     private void render(){
@@ -45,8 +51,10 @@ public class Game implements Runnable {
         g = bs.getDrawGraphics();
         g.clearRect(0,0,width,height);                      //Clearing the screen before we start drawing
         //Draw Start
-        g.drawImage(assets.grass,0,0,Assets.width,Assets.height,null);
-        g.drawImage(assets.water,32,0,Assets.width,Assets.height,null);
+
+        if(State.getState() !=null) {
+            State.getState().render(g);                          //If our state isnt null then we call the rendering method
+        }
 
         //Draw end
         bs.show();
