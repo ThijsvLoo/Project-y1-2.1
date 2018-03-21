@@ -11,7 +11,7 @@ public class Game implements Runnable {
     private boolean running = false;
     public String title;
 
-    private nanos_Per_Second = 1000000000;
+    private int nanos_Per_Second = 1000000000;
 
     private Thread thread;
     public State gameState;
@@ -30,7 +30,6 @@ public class Game implements Runnable {
 
     //The initialization
     private void init(){
-        display = new Display(title,width,height);
         Assets.init();
 
         gameState=new GameState();
