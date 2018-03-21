@@ -29,7 +29,6 @@ public class Display {
 
 
         canvas=new Canvas();
-        canvas.setBackground(Color.BLUE);
         canvas.setPreferredSize(new Dimension(width,height));
         canvas.setMaximumSize(new Dimension(width,height));
         canvas.setMinimumSize(new Dimension(width,height));
