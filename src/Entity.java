@@ -88,6 +88,11 @@ public abstract class Entity {
             this.entities = entities;
         }
 
+        public boolean isSolid {
+            return false;
+        }
+
+
     */
 
     }
