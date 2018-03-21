@@ -11,7 +11,7 @@ public class Game implements Runnable {
     private boolean running = false;
     public String title;
 
-    private nanos_Per_Second = 1000000000;
+    private int nanos_Per_Second = 1000000000;
 
     private Thread thread;
     public State gameState;
@@ -20,6 +20,7 @@ public class Game implements Runnable {
 
     private BufferStrategy bs;
     private Graphics g;
+    private Player ball;
 
     public Game(String title,int width,int height){
         this.title=title;
@@ -30,12 +31,12 @@ public class Game implements Runnable {
 
     //The initialization
     private void init(){
-        display = new Display(title,width,height);
-        Assets.init();
-
+        assets.init();
+        //Game State Initialization
         gameState=new GameState();
         State.setState(gameState);
-
+        //Player Initialization
+        ball = new Player(assets.ball, 0, 0, 16, 16);
     }
 
     private void tick(){
@@ -57,6 +58,8 @@ public class Game implements Runnable {
         if(State.getState() !=null) {
             State.getState().render(g);                          //If our state isnt null then we call the rendering method
         }
+
+        ball.render(g);
 
         //Draw end
         bs.show();
@@ -92,6 +95,7 @@ public class Game implements Runnable {
                 System.out.println("Frames per second: " + ticks);     //Just printing the Fps in the console
                 ticks = 0;
                 timer = 0;
+                ball.move();
             }
         }
         stop();                                    //Calling the stop method after the loop just in case the game didn't close

@@ -14,7 +14,7 @@ public abstract class Entity {
         this.y = y;
         this.width = width;
         this.height = height;
-        bounds = new Rectangle(0, 0, width, height);
+        this.bounds = new Rectangle(0, 0, width, height);
     }
 
     public abstract void tick();
