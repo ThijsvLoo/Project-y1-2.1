@@ -31,12 +31,12 @@ public class Game implements Runnable {
 
     //The initialization
     private void init(){
-        Assets.init();
+        assets.init();
         //Game State Initialization
         gameState=new GameState();
         State.setState(gameState);
         //Player Initialization
-        ball = new Player(0, 0, 16, 16);
+        ball = new Player(assets.ball, 0, 0, 16, 16);
     }
 
     private void tick(){
@@ -95,8 +95,8 @@ public class Game implements Runnable {
                 System.out.println("Frames per second: " + ticks);     //Just printing the Fps in the console
                 ticks = 0;
                 timer = 0;
+                ball.move();
             }
-            ball.move();
         }
         stop();                                    //Calling the stop method after the loop just in case the game didn't close
     }

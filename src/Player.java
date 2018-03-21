@@ -5,9 +5,9 @@ public class Player extends Entity {
   private static BufferedImage[] sprite;
   private static int iterator;
 
-  public Player(float x, float y, int width, int height) {
+  public Player(BufferedImage[] image, float x, float y, int width, int height) {
     super(x, y, width, height);
-    this.sprite = Assets.ball;
+    this.sprite = image;
     this.iterator = 0;
   }
 
@@ -22,7 +22,7 @@ public class Player extends Entity {
   }
 
   public void move() {
-    this.x++;
-    this.y++;
+    this.x+=5;
+    this.y+=5;
   }
 }
