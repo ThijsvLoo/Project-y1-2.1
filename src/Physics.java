@@ -1,12 +1,20 @@
 
 public class Physics {
+
+
+	private double height = 0;
+	private double xHeight = 0;
+  private	double yHeight = 0;
+
 	private double ballVelocity;
 	private double velocityAngle;
 	private double[] ballPosition;
-	private final double grAcceleration = 10;
+  private double frictionC=0.1;
+	private final double grAcceleration = 9.81;
 	private final double ballMass=1;
 	private double leftBound, rightBound, frontBound, backBound;
 
+	private double delta = 1.0/60;
 
 	public Physics(double velocity, double angle, double[] position) {
 		ballVelocity=velocity;
@@ -18,25 +26,18 @@ public class Physics {
 		frontBound=20;
 	}
 
-	public void ballMotion(double frictionC, double slopeAngle, double slopeDirection) {
+	public void ballMotion() {
 
-    /* The funtion that defines the height of the specific position in the x-y plane */
-    double height = Math.sin(ballPosition[0])+ballPosition[1];
 
-    /* The x derivative of the height function */
-    double xHeight = Math.cos(ballPosition[0]);
-
-    /* The y derivative of the height function */
-    double yHeight = 1;
 
     /* The velocity array contains the Velocity of the x and y axis respectively */
-		double[] velocityAr = {ballVelocity*Math.cos(velocityAngle), ballVelocity*Math.sin(velocityAngle)};
+		double[] velocityAr = {ballVelocity*Math.cos(velocityAngle)*Math.cos(Math.atan(xHeight)), ballVelocity*Math.sin(velocityAngle)*Math.cos(Math.atan(yHeight))};
 
       /* The acceleration array contains the Velocity of the x and y axis respectively */
 		double[] accelerationAr = new double[2];
 
     /* The gravity Force */
-		double gravity = ballMass*grAcceleration ;
+		double gravity = -ballMass*grAcceleration ;
 
     /* The gravityAr contains the effective gravity for the x and y axis respectively */
 		double[] gravityAr = {gravity*xHeight, gravity*yHeight};
@@ -45,10 +46,8 @@ public class Physics {
 		double friction=-frictionC*ballMass*grAcceleration;
 
     /* The frictionAr contains the friction for the x and y axis respectively */
-		double[] frictionAr = {friction*Math.cos(velocityAngle)*Math.sin(Math.atan(xHeight)), friction*Math.sin(velocityAngle)*Math.sin(Math.atan(xHeight))};
+		double[] frictionAr = {friction*Math.cos(velocityAngle)*Math.cos(Math.atan(xHeight)), friction*Math.sin(velocityAngle)*Math.cos(Math.atan(yHeight))};
 
-    /* The time step */
-		double delta = 0.1;
 
 
 
@@ -68,6 +67,7 @@ public class Physics {
 		this.velocityAngle=Math.atan(velocityAr[1]/velocityAr[0]);
 
 	}
+
 
 	public boolean isColide() {
 		if(ballPosition[0]==rightBound || ballPosition[0]==leftBound || ballPosition[1]==frontBound || ballPosition[1]==backBound)
@@ -101,11 +101,47 @@ public class Physics {
 		return velocityAngle;
 	}
 
+	public void setHeight() {
+		this.height = Math.sin(ballPosition[0])+Math.cos(ballPosition[1]);
+		this.xHeight = Math.cos(ballPosition[0]);
+		this.yHeight = -Math.sin(ballPosition[1]);
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public double getXHeight() {
+		return xHeight;
+	}
+
+	public double getYHeight() {
+		return yHeight;
+	}
+
+	public void setFrictionC() {
+
+		if (height<0)
+			frictionC = -100000;
+
+		else if ( height > 0 && height < 1 )
+			frictionC = 0.1;
+
+		else if ( height >= 1)
+			frictionC = 0.2;
+	}
+
+	public double getFrictionC(){
+		return frictionC;
+	}
+
 	public static void main(String[] args) {
 		double[] position = {0,0};
 		Physics physics = new Physics(10,Math.PI/4,position);
-		while(physics.getVelocity()>0.05 ) {
-			physics.ballMotion(0.1, Math.PI/6, Math.PI);
+		physics.setHeight();
+		while(physics.getVelocity()>0.5 ) {
+			physics.setFrictionC();
+			physics.ballMotion();
 			System.out.println(physics.getPosition()[0]+" , "+physics.getPosition()[1]);
 			System.out.println(physics.getAngle());
 			System.out.println(physics.getVelocity());
