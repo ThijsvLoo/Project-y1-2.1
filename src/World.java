@@ -11,8 +11,8 @@ public class World {
 
     public World(String path){
         loadWorld(path);
-        this.tileWidth = Tile.TILE_WIDTH/(1920/screenSize.width);
-        this.tileHeight = Tile.TILE_HEIGHT/(1080/screenSize.height);
+        this.tileWidth = (int)((double) Tile.TILE_WIDTH/ (double) (1920/screenSize.width));
+        this.tileHeight = (int)((double) Tile.TILE_HEIGHT/ (double) (1080/screenSize.height));
         System.out.println(screenSize);
     }
 

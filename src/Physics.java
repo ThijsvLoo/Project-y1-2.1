@@ -9,7 +9,7 @@ public class Physics {
 	private final double ballMass=1;
 	private double delta = 1.0/60;
 
-	private double ballVelocity;
+	public double ballVelocity;
 	private double velocityAngle;
 	public double[] ballPosition;
 	private double leftBound, rightBound, frontBound, backBound;
@@ -132,6 +132,11 @@ public class Physics {
 
 	public double getFrictionC(){
 		return frictionC;
+	}
+
+	public void stop(){
+		this.ballVelocity = 0;
+		this.ballPosition = new double[]{10, 10};
 	}
 
 	public static void main(String[] args) {

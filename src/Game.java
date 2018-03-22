@@ -53,7 +53,13 @@ public class Game implements Runnable {
         if(State.getState() !=null) {
             State.getState().tick();                //If our state is not null(we have a state menu/game/etc) then we call the method tick
         }
-
+        if(mouseManager.isLeftPressed())     
+            if(ball.moving == false)
+                ball.hit(mouseManager.getMouseX(), mouseManager.getMouseY());
+        if(mouseManager.isRightPressed())
+            ball.reset();
+        if(ball.moving)
+            ball.tick();
     }
 
     private void render(){
@@ -71,6 +77,9 @@ public class Game implements Runnable {
         }
 
         ball.render(g);
+        if(ball.moving == false){
+
+        }
 
         //Draw end
         bs.show();
@@ -101,13 +110,11 @@ public class Game implements Runnable {
                 delta--;
                 ticks++;
             }
-
             if(timer>=1000000000) {
                 System.out.println("Frames per second: " + ticks);     //Just printing the Fps in the console
                 ticks = 0;
                 timer = 0;
             }
-            ball.move();
         }
         stop();                                    //Calling the stop method after the loop just in case the game didn't close
     }
