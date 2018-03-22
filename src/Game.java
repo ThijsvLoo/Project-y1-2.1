@@ -106,8 +106,8 @@ public class Game implements Runnable {
                 System.out.println("Frames per second: " + ticks);     //Just printing the Fps in the console
                 ticks = 0;
                 timer = 0;
-                ball.move();
             }
+            ball.move();
         }
         stop();                                    //Calling the stop method after the loop just in case the game didn't close
     }

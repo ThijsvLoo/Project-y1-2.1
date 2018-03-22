@@ -13,6 +13,7 @@ public class World {
         loadWorld(path);
         this.tileWidth = Tile.TILE_WIDTH/(1920/screenSize.width);
         this.tileHeight = Tile.TILE_HEIGHT/(1080/screenSize.height);
+        System.out.println(screenSize);
     }
 
     public void tick(){}
