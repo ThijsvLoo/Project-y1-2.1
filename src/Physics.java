@@ -15,9 +15,13 @@ public class Physics {
 
 	public Physics(World world) {
 		leftBound=world.tileWidth;
-		rightBound=world.width - world.tileWidth;
-		backBound=world.height - world.tileHeight;
+		System.out.println("leftBound = "+leftBound);
+		rightBound=world.width*world.tileWidth - world.tileWidth;
+		System.out.println("rightBound = "+rightBound);
+		backBound=world.height*world.tileHeight - world.tileHeight;
+		System.out.println("backBound = "+backBound);
 		frontBound=world.tileHeight;
+		System.out.println("frontBound = "+frontBound);
 	}
 
 	public void setInMotion(double velocity, double angle, double[] position) {
@@ -55,7 +59,7 @@ public class Physics {
 		velocityAr[0] += accelerationAr[0]*delta;
 		velocityAr[1] += accelerationAr[1]*delta;
 
-		collision();
+
 
             /* The equations of the position */
 		this.ballPosition[0] += velocityAr[0]*delta;
@@ -66,17 +70,24 @@ public class Physics {
 											*velocityAr[0]*Math.sin(Math.atan(xHeight))/Math.cos(Math.atan(xHeight))
 											+velocityAr[1]*Math.sin(Math.atan(yHeight))/Math.cos(Math.atan(yHeight))
 											*velocityAr[1]*Math.sin(Math.atan(yHeight))/Math.cos(Math.atan(yHeight)))/2);
-		this.velocityAngle=Math.atan(velocityAr[1]/velocityAr[0]);
+
+										if(velocityAr[1]>0 && velocityAr[0]<0)
+											this.velocityAngle=Math.PI/2-Math.atan(velocityAr[1]/velocityAr[0]);
+										else if(velocityAr[1]<0 && velocityAr[0]<0)
+											this.velocityAngle=Math.PI+Math.atan(velocityAr[1]/velocityAr[0]);
+										else
+											this.velocityAngle=Math.atan(velocityAr[1]/velocityAr[0]);
+											collision();
 	}
 
 	public void collision() {
-		if(ballPosition[0]<=rightBound || ballPosition[0]>=leftBound){
+		if(ballPosition[0]>=rightBound || ballPosition[0]<=leftBound){
 			this.velocityAngle = Math.PI - this.velocityAngle;
-			this.velocityAr[0] = -this.velocityAr[0];
+			// this.velocityAr[0] = -this.velocityAr[0];
 		}
-		if(ballPosition[1]>=frontBound || ballPosition[1]<=backBound){
+		if(ballPosition[1]<=frontBound || ballPosition[1]>=backBound){
 			this.velocityAngle = -this.velocityAngle;
-			this.velocityAr[1] = -this.velocityAr[1];
+			// this.velocityAr[1] = -this.velocityAr[1];
 		}
 	}
 

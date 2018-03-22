@@ -14,7 +14,7 @@ public class Player extends Entity {
   public Player(Handler handler, BufferedImage[] image, float x, float y, int width, int height) {
     super(x, y, width, height);
     this.handler=handler;
-    this.world = new World(handler,"resources/world1.txt");
+    this.world = new World(handler,"../resources/world1.txt");
     this.sprite = image;
     this.iterator = 0;
     this.engine = new Physics(world);
@@ -40,7 +40,13 @@ public class Player extends Entity {
 
   public void hit(int mouseX, int mouseY){
     double vel = Math.sqrt(Math.pow((mouseX - this.x), 2) + Math.pow((mouseY - this.y), 2));
+
     double angle = Math.atan((mouseY - this.y)/(mouseX - this.x));
+    if(mouseY-this.y>0 && mouseX-this.x<0)
+        angle = Math.PI/2-Math.atan((mouseY - this.y)/(mouseX - this.x));
+    else if(mouseY-this.y<0 && mouseX-this.x<0)
+        angle = Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
+        
     this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
     this.moving = true;
   }

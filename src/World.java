@@ -50,8 +50,9 @@ third row : here is the map , as much integers as we set the width and as many r
     private void loadWorld(String path){
         String file = Util.loadFileAsString(path);
         String[] tokens = file.split("\\s+");
-        width = Util.parseInt(tokens[0]);
-        height=Util.parseInt(tokens[1]);
+        this.width = Util.parseInt(tokens[0]);
+        this.height=Util.parseInt(tokens[1]);
+        System.out.println("worldHeight = "+this.height);
        // spawnX= Util.parseInt(tokens[2]);
         //spawnY=Util.parseInt(tokens[3]);
 
