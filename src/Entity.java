@@ -5,11 +5,11 @@ import java.util.Comparator;
 
 public abstract class Entity {
 
-    protected float x, y;
+    protected double x, y;
     protected int width, height;
     protected Rectangle bounds;
 
-    public Entity(float x, float y, int width, int height) {
+    public Entity(double x, double y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;

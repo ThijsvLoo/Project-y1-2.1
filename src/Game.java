@@ -46,7 +46,7 @@ public class Game implements Runnable {
         gameState=new GameState(handler);
         menuState=new MenuState(handler);
         State.setState(menuState);
-        ball = new Player(assets.ball, 0, 0, 16, 16);
+        ball = new Player(assets.ball, 100, 100, 16, 16);
     }
 
     private void tick(){
