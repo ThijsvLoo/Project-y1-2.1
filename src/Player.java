@@ -37,7 +37,7 @@ public class Player extends Entity {
   }
 
   public void hit(int mouseX, int mouseY){
-    double vel = Math.sqrt(Math.pow(mouseX, 2) + Math.pow(mouseY, 2));
+    double vel = Math.sqrt(Math.pow((mouseX - this.x), 2) + Math.pow((mouseY - this.y), 2));
     double angle = Math.atan(mouseY/mouseX);
     this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
     this.moving = true;
@@ -55,6 +55,7 @@ public class Player extends Entity {
   public void reset(){
     this.x = 10;
     this.y = 10;
+    this.moving = false;
     this.engine.reset();
   }
 }
