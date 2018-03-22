@@ -7,12 +7,13 @@ public class Player extends Entity {
   private static int iterator;
   private static Physics engine;
   private static World world;
+  private Handler handler;
   public static boolean moving;
-  private static Handler handler;
 
   public Player(Handler handler, BufferedImage[] image, float x, float y, int width, int height) {
     super(x, y, width, height);
-    this.world = new World(handler,"../resources/world1.txt");
+    this.handler=handler;
+    this.world = new World(handler,"resources/world1.txt");
     this.sprite = image;
     this.iterator = 0;
     this.engine = new Physics(this.world.width, this.world.height);
@@ -27,7 +28,7 @@ public class Player extends Entity {
   public void tick() {     //This will update everything
     this.iterator++;
     if(this.iterator >= 2) this.iterator = 0;
-    if(handler.getGame().getMouseManager().isLeftPressed())     
+    if(handler.getGame().getMouseManager().isLeftPressed())
       if(this.moving == false)
           hit(handler.getGame().getMouseManager().getMouseX(), handler.getGame().getMouseManager().getMouseY());
     if(handler.getGame().getMouseManager().isRightPressed())
@@ -57,5 +58,9 @@ public class Player extends Entity {
     this.y = 10;
     this.moving = false;
     this.engine.reset();
+  }
+
+  public double getX(){
+    return x;
   }
 }
