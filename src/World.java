@@ -9,7 +9,7 @@ public class World {
     private Entity.Manager entityManager;
     public int tileWidth, tileHeight;
 
-    public World(String path){
+    public World(Handler handler,String path){
         loadWorld(path);
         this.tileWidth = (int)((double) Tile.TILE_WIDTH/ (double) (1920/screenSize.width));
         this.tileHeight = (int)((double) Tile.TILE_HEIGHT/ (double) (1080/screenSize.height));

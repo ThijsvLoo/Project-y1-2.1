@@ -46,20 +46,14 @@ public class Game implements Runnable {
         gameState=new GameState(handler);
         menuState=new GameState(handler);
         State.setState(menuState);
-        ball = new Player(assets.ball, 100, 100, 16, 16);
+        ball = new Player(handler, assets.ball, 100, 100, 16, 16);
     }
 
     private void tick(){
         if(State.getState() !=null) {
             State.getState().tick();                //If our state is not null(we have a state menu/game/etc) then we call the method tick
         }
-        if(mouseManager.isLeftPressed())     
-            if(ball.moving == false)
-                ball.hit(mouseManager.getMouseX(), mouseManager.getMouseY());
-        if(mouseManager.isRightPressed())
-            ball.reset();
-        if(ball.moving)
-            ball.tick();
+        ball.tick();
     }
 
     private void render(){

@@ -134,7 +134,7 @@ public class Physics {
 		return frictionC;
 	}
 
-	public void stop(){
+	public void reset(){
 		this.ballVelocity = 0;
 		this.ballPosition = new double[]{10, 10};
 	}
