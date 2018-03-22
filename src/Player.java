@@ -26,9 +26,10 @@ public class Player extends Entity {
     if(this.iterator >= 2) this.iterator = 0;
   }
 
-  public void move() {
+  public void move(){
+    this.engine.collision();
     this.engine.ballMotion();
-    this.x = this.engine.ballPosition[0]*this.world.tileWidth;
-    this.y = this.engine.ballPosition[1]*this.world.tileHeight;
+    this.x = this.engine.ballPosition[0];
+    this.y = this.engine.ballPosition[1];
   }
 }
