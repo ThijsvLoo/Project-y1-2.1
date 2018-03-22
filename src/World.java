@@ -13,6 +13,8 @@ public class World {
         loadWorld(path);
         this.tileWidth = (int)((double)Tile.TILE_WIDTH/((double)screenSize.width/1920));
         this.tileHeight = (int)((double)Tile.TILE_HEIGHT/(double)(screenSize.height/1080));
+        this.tileWidth = (int)((double) Tile.TILE_WIDTH/ (double) (1920/screenSize.width));
+        this.tileHeight = (int)((double) Tile.TILE_HEIGHT/ (double) (1080/screenSize.height));
         System.out.println(screenSize);
     }
 
