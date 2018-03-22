@@ -107,7 +107,6 @@ public class Game implements Runnable {
                 ticks++;
             }
             if(timer>=1000000000) {
-                System.out.println("Frames per second: " + ticks);     //Just printing the Fps in the console
                 ticks = 0;
                 timer = 0;
             }

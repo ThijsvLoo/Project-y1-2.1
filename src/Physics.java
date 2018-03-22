@@ -1,6 +1,4 @@
 public class Physics {
-
-
 	private double height = 0;
 	private double xHeight = 0;
   	private	double yHeight = 0;
@@ -73,7 +71,7 @@ public class Physics {
 
 	public void collision() {
 		if(ballPosition[0]<=rightBound || ballPosition[0]>=leftBound){
-			this.velocityAngle = -this.velocityAngle;
+			this.velocityAngle = Math.PI - this.velocityAngle;
 			this.velocityAr[0] = -this.velocityAr[0];
 		}
 		if(ballPosition[1]>=frontBound || ballPosition[1]<=backBound){

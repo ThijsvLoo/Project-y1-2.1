@@ -15,11 +15,10 @@ public class World {
         this.handler=handler;
         this.tileWidth = (int)((double) Tile.TILE_WIDTH/ (double) (1920.0/screenSize.width));
         this.tileHeight = (int)((double) Tile.TILE_HEIGHT/ (double) (1080.0/screenSize.height));
-        System.out.println(screenSize);
     }
 
     public void tick(){
-        
+
     }
 
     public void render(Graphics g){
