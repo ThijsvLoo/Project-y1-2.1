@@ -1,14 +1,20 @@
 public class Handler {
         private Game game;
         private World world;
+        private Physics physics;
 
         public Handler(Game game) {
             this.game=game;
+
 
         }
 
         public MouseManager getMouseManager() {
             return game.getMouseManager();
+        }
+
+        public Physics getPhysics(){
+            return game.getBall().getEngine();
         }
 
         public int getWidth() {
