@@ -7,13 +7,13 @@ public class Player extends Entity {
   private static Physics engine;
   private static World world;
 
-  public Player(World world, BufferedImage[] image, float x, float y, int width, int height) {
+  public Player(BufferedImage[] image, float x, float y, int width, int height) {
     super(x, y, width, height);
-    this.world = world;
+    this.world = new World("../resources/world1.txt");
     this.sprite = image;
     this.iterator = 0;
-    this.engine = new Physics(world.width, world.height);
-    this.engine.setInMotion(10,Math.PI/4,new double[]{x, y});
+    this.engine = new Physics(this.world.width, this.world.height);
+    this.engine.setInMotion(100,Math.PI/4,new double[]{x, y});
   }
 
   public void render(Graphics g){
