@@ -34,6 +34,16 @@ public class Player extends Entity {
           hit(handler.getGame().getMouseManager().getMouseX(), handler.getGame().getMouseManager().getMouseY());
     if(handler.getGame().getMouseManager().isRightPressed())
         reset();
+    if(this.y>5*world.tileHeight && this.y<9*world.tileHeight
+    && this.x>22*world.tileWidth &&  this.x<28*world.tileWidth  ||
+    this.y>9*world.tileHeight && this.y<13*world.tileHeight
+    && this.x>4*world.tileWidth &&  this.x<9*world.tileWidth)
+        reset();
+
+    if(this.y>13*world.tileHeight && this.y<14*world.tileHeight
+        && this.x>27*world.tileWidth &&  this.x<28*world.tileWidth)
+        gameOver();
+
     if(this.moving)
         move();
   }
@@ -48,25 +58,37 @@ public class Player extends Entity {
         angle = Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
 
     this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
+    this.engine.setHeight();
     this.moving = true;
   }
 
   public void move(){
+
     this.engine.ballMotion();
     this.x = this.engine.ballPosition[0];
     this.y = this.engine.ballPosition[1];
-    if(this.engine.ballVelocity <= 1){
+
+
+    if(this.engine.ballVelocity <= 4 &&
+    Math.sqrt(this.engine.getAcceleration()[0]*this.engine.getAcceleration()[0]+
+    this.engine.getAcceleration()[1]*this.engine.getAcceleration()[1])<1000 ){
       this.moving = false;
       this.engine.reset(false);
     }
   }
 
+  public void gameOver(){
+    this.handler.getGame().stop();
+  }
+
   public void reset(){
-    this.x = 1740;
-    this.y = 1000;
+    this.x = 80;
+    this.y = 450;
     this.moving = false;
     this.engine.reset(true);
   }
+
+
 
   public double getX(){
     return x;

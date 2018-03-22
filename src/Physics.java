@@ -8,10 +8,12 @@ public class Physics {
 	private double delta = 1.0/60;
 
 	public double ballVelocity;
+	double[] accelerationAr = new double[2];
 	private double velocityAngle;
 	public double[] ballPosition = new double[]{100, 100};
 	private double[] velocityAr = new double[]{0, 0};
 	private double leftBound, rightBound, frontBound, backBound;
+	private World world;
 
 	public Physics(World world) {
 		leftBound=world.tileWidth;
@@ -22,6 +24,7 @@ public class Physics {
 		System.out.println("backBound = "+backBound);
 		frontBound=world.tileHeight;
 		System.out.println("frontBound = "+frontBound);
+		this.world=world;
 	}
 
 	public void setInMotion(double velocity, double angle, double[] position) {
@@ -29,15 +32,21 @@ public class Physics {
 		this.velocityAngle=angle;
 		this.ballPosition=position;
 		this.velocityAr = new double[]{velocity*Math.cos(velocityAngle)*Math.cos(Math.atan(xHeight)), velocity*Math.sin(velocityAngle)*Math.cos(Math.atan(yHeight))};
+
+
 	}
 
 	public void ballMotion() {
+
+		if(this.ballPosition[1]>4*world.tileHeight && this.ballPosition[1]<8*world.tileHeight
+        && this.ballPosition[0]>8*world.tileWidth &&  this.ballPosition[0]<14*world.tileWidth)
+				this.frictionC=60;
+		else this.frictionC=10;
+
+		System.out.println("BallVelocity = "+ballVelocity);
     /* The velocity array contains the Velocity of the x and y axis respectively */
 		this.velocityAr[0] = ballVelocity*Math.cos(velocityAngle)*Math.cos(Math.atan(xHeight));
 		this.velocityAr[1] = ballVelocity*Math.sin(velocityAngle)*Math.cos(Math.atan(yHeight));
-
-      /* The acceleration array contains the Velocity of the x and y axis respectively */
-		double[] accelerationAr = new double[2];
 
     /* The gravity Force */
 		double gravity = -ballMass*grAcceleration ;
@@ -60,10 +69,13 @@ public class Physics {
 		velocityAr[1] += accelerationAr[1]*delta;
 
 
-
+		System.out.println("Acceleration = "+  Math.sqrt(getAcceleration()[0]*getAcceleration()[0]+
+			getAcceleration()[1]*getAcceleration()[1]));
             /* The equations of the position */
 		this.ballPosition[0] += velocityAr[0]*delta;
 		this.ballPosition[1] += velocityAr[1]*delta;
+
+
 
 		this.ballVelocity=Math.sqrt(velocityAr[0]*velocityAr[0]+velocityAr[1]*velocityAr[1]
 											+(velocityAr[0]*Math.sin(Math.atan(xHeight))/Math.cos(Math.atan(xHeight))
@@ -104,9 +116,9 @@ public class Physics {
 	}
 
 	public void setHeight() {
-		this.height = Math.sin(ballPosition[0])+Math.cos(ballPosition[1]);
-		this.xHeight = Math.cos(ballPosition[0]);
-		this.yHeight = -Math.sin(ballPosition[1]);
+		this.height = Math.cos(ballPosition[0])*Math.sin(ballPosition[1]);
+		this.xHeight = -Math.sin(ballPosition[0]*Math.sin(ballPosition[1]));
+		this.yHeight = Math.cos(ballPosition[0]*Math.cos(ballPosition[1]));
 	}
 
 	public double getHeight() {
@@ -135,6 +147,10 @@ public class Physics {
 
 	public double getFrictionC(){
 		return frictionC;
+	}
+
+	public double[] getAcceleration(){
+		return accelerationAr;
 	}
 
 	public void reset(boolean position){
