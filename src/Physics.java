@@ -63,7 +63,11 @@ public class Physics {
 		this.ballPosition[0] += velocityAr[0]*delta ;
 		this.ballPosition[1] += velocityAr[1]*delta ;
 
-		this.ballVelocity=Math.sqrt(velocityAr[0]*velocityAr[0]+velocityAr[1]*velocityAr[1]);
+		this.ballVelocity=Math.sqrt(velocityAr[0]*velocityAr[0]+velocityAr[1]*velocityAr[1]
+											+(velocityAr[0]*Math.sin(Math.atan(xHeight))/Math.cos(Math.atan(xHeight))
+											*velocityAr[0]*Math.sin(Math.atan(xHeight))/Math.cos(Math.atan(xHeight))
+											+velocityAr[1]*Math.sin(Math.atan(yHeight))/Math.cos(Math.atan(yHeight))
+											*velocityAr[1]*Math.sin(Math.atan(yHeight))/Math.cos(Math.atan(yHeight)))/2);
 		this.velocityAngle=Math.atan(velocityAr[1]/velocityAr[0]);
 
 	}
