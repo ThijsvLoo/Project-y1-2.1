@@ -8,6 +8,9 @@ public class Tile {
     public static Tile grassTile = new Grass(0);
     public static Tile sandTile = new Sand(1);
     public static Tile waterTile = new Water(2);
+    public static Tile stoneTile = new Stone(3);
+
+
     //CLASS
     public static final int TILE_WIDTH=64,TILE_HEIGHT=64;
 
@@ -38,6 +41,14 @@ class Grass extends Tile {
     //from the super class (isSolid) that will mean that it has collision , otherwise it doesn't
     public Grass(int id){
         super(Assets.grass,id);
+    }
+}
+
+class Stone extends Tile {
+    //that is the class for our tile where we set the id and texture for it and check if it is a solid surface(needs collision or not) if we override the method
+    //from the super class (isSolid) that will mean that it has collision , otherwise it doesn't
+    public Stone(int id){
+        super(Assets.stone,id);
     }
 }
 
