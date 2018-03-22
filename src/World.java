@@ -8,15 +8,19 @@ public class World {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private Entity.Manager entityManager;
     public int tileWidth, tileHeight;
+    private Handler handler;
 
     public World(Handler handler,String path){
         loadWorld(path);
-        this.tileWidth = (int)((double) Tile.TILE_WIDTH/ (double) (1920/screenSize.width));
-        this.tileHeight = (int)((double) Tile.TILE_HEIGHT/ (double) (1080/screenSize.height));
+        this.handler=handler;
+        this.tileWidth = (int)((double) Tile.TILE_WIDTH/ (double) (1920.0/screenSize.width));
+        this.tileHeight = (int)((double) Tile.TILE_HEIGHT/ (double) (1080.0/screenSize.height));
         System.out.println(screenSize);
     }
 
-    public void tick(){}
+    public void tick(){
+
+    }
 
     public void render(Graphics g){
       for(int y=0;y<height;y++){

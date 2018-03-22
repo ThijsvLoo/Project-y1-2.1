@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 public abstract class Entity {
 
-    protected double x, y;
+    public double x, y;
     protected int width, height;
     protected Rectangle bounds;
 
