@@ -35,10 +35,12 @@ public class Display {
 
 
         canvas=new Canvas();
-        canvas.setBackground(Color.BLUE);
         canvas.setPreferredSize(new Dimension(width,height));
         canvas.setMaximumSize(new Dimension(width,height));
         canvas.setMinimumSize(new Dimension(width,height));
+
+        //Menu
+        JPanel panel = new JPanel();
 
 
 
@@ -52,5 +54,8 @@ public class Display {
     public Canvas getCanvas() {
         return canvas;
     }
+    public Frame getFrame(){ return frame;}
 
 }
+
+

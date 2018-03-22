@@ -1,7 +1,5 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.nio.file.Paths;
 
 public class Game implements Runnable {
 
@@ -15,32 +13,47 @@ public class Game implements Runnable {
 
     private Thread thread;
     public State gameState;
+    public State menuState;
+    private MouseManager mouseManager;
+    private Handler handler;
     //Test
     Assets assets = new Assets();
 
     private BufferStrategy bs;
     private Graphics g;
+    private Player ball;
 
     public Game(String title,int width,int height){
         this.title=title;
         this.width=width;
         this.height=height;
-        display = new Display(title,width,height);
+        mouseManager =new MouseManager();
     }
 
     //The initialization
     private void init(){
-        Assets.init();
 
-        gameState=new GameState();
-        State.setState(gameState);
+        //Display init
+        display = new Display(title,width,height);
+        display.getFrame().addMouseListener(mouseManager);
+        display.getFrame().addMouseMotionListener(mouseManager);
+        display.getCanvas().addMouseListener(mouseManager);
+        display.getCanvas().addMouseMotionListener(mouseManager);
 
+        assets.init();
+
+        handler= new Handler(this);
+        gameState=new GameState(handler);
+        menuState=new MenuState(handler);
+        State.setState(menuState);
+        ball = new Player(assets.ball, 0, 0, 16, 16);
     }
 
     private void tick(){
         if(State.getState() !=null) {
             State.getState().tick();                //If our state is not null(we have a state menu/game/etc) then we call the method tick
         }
+
     }
 
     private void render(){
@@ -56,6 +69,8 @@ public class Game implements Runnable {
         if(State.getState() !=null) {
             State.getState().render(g);                          //If our state isnt null then we call the rendering method
         }
+
+        ball.render(g);
 
         //Draw end
         bs.show();
@@ -91,6 +106,7 @@ public class Game implements Runnable {
                 System.out.println("Frames per second: " + ticks);     //Just printing the Fps in the console
                 ticks = 0;
                 timer = 0;
+                ball.move();
             }
         }
         stop();                                    //Calling the stop method after the loop just in case the game didn't close
@@ -114,5 +130,17 @@ public class Game implements Runnable {
             e.printStackTrace();
         }
 
+    }
+
+    public MouseManager getMouseManager(){
+        return mouseManager;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
     }
 }

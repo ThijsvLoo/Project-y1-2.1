@@ -13,14 +13,18 @@ public abstract class State {
     }  //returns the current state
 
     //CLASS
+    protected Handler handler;
 
-    public State(){
+    public State(Handler handler){
+        this.handler=handler;
 
     }
 
     public abstract void tick();
 
     public abstract void render(Graphics g);
+
+
 }
 
 class GameState extends State {
@@ -30,8 +34,8 @@ here the rendering is called and the tick method + the path to our world is give
  */
     private World world;
 
-    public GameState(){
-        super();
+    public GameState(Handler handler){
+        super(handler);
         world=new World("../resources/world1.txt");
     }
 
@@ -44,5 +48,27 @@ here the rendering is called and the tick method + the path to our world is give
     public void render(Graphics g) {
         world.render(g);
 
+    }
+}
+
+class MenuState extends State {
+
+    public MenuState(Handler handler){
+        super(handler);
+    }
+    @Override
+    public void tick() {
+        if(handler.getMouseManager().isLeftPressed())
+            System.out.println(handler.getMouseManager().getMouseX() + " " + handler.getMouseManager().getMouseY());
+        if((handler.getMouseManager().getMouseY()>424 && handler.getMouseManager().getMouseY()<486)
+            &&(handler.getMouseManager().getMouseX()>661&&handler.getMouseManager().getMouseX()<1260)
+             && handler.getMouseManager().isLeftPressed()){
+            State.setState(handler.getGame().gameState);
+        }
+    }
+
+    @Override
+    public void render(Graphics g) {
+        g.drawImage(Assets.menu,0,0,1920,1080,null);
     }
 }
