@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class World {
 
-    private int width,height;
+    public static int width,height;
     private int spawnX,spawnY;
     private int[][] tiles;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -10,12 +10,9 @@ public class World {
 
     public World(String path){
         loadWorld(path);
-
     }
 
-    public void tick(){
-
-    }
+    public void tick(){}
 
     public void render(Graphics g){
       for(int y=0;y<height;y++){
@@ -23,19 +20,18 @@ public class World {
               getTile(x,y).render(g,x*Tile.TILE_WIDTH/(1920/screenSize.width),y*Tile.TILE_HEIGHT/(1080/screenSize.height));     //A loop that is getting the current tile from the getTile method in order to
           }                                                                         //render it ...Draws the map
       }
-
     }
 
     public Tile getTile(int x,int y) {
         if (x < 0 || y < 0 || x >= width || y >= height) {                     //if the tile is something outside our map , it will assume it is water so we can
             return Tile.waterTile;                        //restart the game
         }
-            Tile t = Tile.tiles[tiles[x][y]];
-            if (t == null) {
-                return Tile.waterTile;
-            }
-            return t;
+        Tile t = Tile.tiles[tiles[x][y]];
+        if (t == null) {
+            return Tile.waterTile;
         }
+        return t;
+    }
 
 /*
 it is reading from the path(our text document) each number should be divided by a space , first row : 2 integers , height/width of the map
