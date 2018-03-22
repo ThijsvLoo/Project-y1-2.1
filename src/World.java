@@ -15,9 +15,11 @@ public class World {
         this.handler=handler;
         this.tileWidth = (int)((double) Tile.TILE_WIDTH/ (double) (1920.0/screenSize.width));
         this.tileHeight = (int)((double) Tile.TILE_HEIGHT/ (double) (1080.0/screenSize.height));
+        System.out.println(screenSize);
     }
 
     public void tick(){
+
 
     }
 
@@ -51,7 +53,7 @@ third row : here is the map , as much integers as we set the width and as many r
         width = Util.parseInt(tokens[0]);
         height=Util.parseInt(tokens[1]);
        // spawnX= Util.parseInt(tokens[2]);
-       // spawnY=Util.parseInt(tokens[3]);
+        //spawnY=Util.parseInt(tokens[3]);
 
         tiles=new int[width][height];
         for(int y=0;y<height;y++) {
@@ -60,6 +62,8 @@ third row : here is the map , as much integers as we set the width and as many r
             }
         }
     }
+
+
     //Getters and setters
     public int getWidth(){
         return width;
@@ -67,6 +71,5 @@ third row : here is the map , as much integers as we set the width and as many r
     public int getHeight(){
         return height;
     }
+
 }
-
-

@@ -7,6 +7,7 @@ public class Game implements Runnable {
 
     private int width,height;
     private boolean running = false;
+    public boolean end=false;
     public String title;
 
     private int nanos_Per_Second = 1000000000;
@@ -16,6 +17,7 @@ public class Game implements Runnable {
     public State menuState;
     private MouseManager mouseManager;
     private Handler handler;
+    private World world;
     //Test
     Assets assets = new Assets();
 
@@ -45,8 +47,9 @@ public class Game implements Runnable {
         handler= new Handler(this);
         gameState=new GameState(handler);
         menuState=new GameState(handler);
-        State.setState(menuState);
-        ball = new Player(handler, assets.ball, 100, 100, 16, 16);
+        ball = new Player(handler, Assets.ball,1760, 1000, 16, 16);
+        State.setState(gameState);
+
     }
 
     private void tick(){
@@ -54,6 +57,7 @@ public class Game implements Runnable {
             State.getState().tick();                //If our state is not null(we have a state menu/game/etc) then we call the method tick
         }
         ball.tick();
+
     }
 
     private void render(){
@@ -107,6 +111,7 @@ public class Game implements Runnable {
                 ticks++;
             }
             if(timer>=1000000000) {
+                System.out.println("Frames per second: " + ticks);     //Just printing the Fps in the console
                 ticks = 0;
                 timer = 0;
             }
@@ -144,5 +149,8 @@ public class Game implements Runnable {
 
     public int getHeight(){
         return height;
+    }
+    public Player getBall(){
+        return ball;
     }
 }

@@ -14,7 +14,7 @@ public class Player extends Entity {
   public Player(Handler handler, BufferedImage[] image, float x, float y, int width, int height) {
     super(x, y, width, height);
     this.handler=handler;
-    this.world = new World(handler,"../resources/world1.txt");
+    this.world = new World(handler,"resources/world1.txt");
     this.sprite = image;
     this.iterator = 0;
     this.engine = new Physics(world);
@@ -56,8 +56,8 @@ public class Player extends Entity {
   }
 
   public void reset(){
-    this.x = 100;
-    this.y = 100;
+    this.x = 1740;
+    this.y = 1000;
     this.moving = false;
     this.engine.reset(true);
   }
@@ -65,4 +65,5 @@ public class Player extends Entity {
   public double getX(){
     return x;
   }
+  public Physics getEngine(){return engine;}
 }

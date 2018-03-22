@@ -28,15 +28,31 @@ That is our game state , which means we are currently not in menu ,but in the ac
 here the rendering is called and the tick method + the path to our world is given . We can change that later when we add more levels
  */
     public World world;
+    public int end =0;
 
     public GameState(Handler handler){
         super(handler);
-        this.world=new World(handler,"../resources/world1.txt");
+        this.world=new World(handler,"resources/world1.txt");
+
     }
 
     @Override
     public void tick() {
+        isGameOver();
+        if(end>0){
+            System.out.println("meow");
+            handler.getPhysics().reset(false);
+            System.exit(0);
+        }
+
         world.tick();
+    }
+    public int isGameOver(){
+        if (handler.getPhysics().ballPosition[0] > 1740 && handler.getPhysics().ballPosition[0] < 1785
+                && handler.getPhysics().ballPosition[1] > 843 && handler.getPhysics().ballPosition[1] < 884) {
+            end++;
+        }
+        return end;
     }
 
     @Override
