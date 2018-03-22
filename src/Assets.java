@@ -7,24 +7,25 @@ public class Assets {
 
     public static final int width=16,height=16;   // The size of one tile
 
-    public static BufferedImage grass,sand,water,stone,hill;     //Tiles that are in game
+    public static BufferedImage grass,sand,water,stone,hill,hole;     //Tiles that are in game
     public static BufferedImage menu;
     public static BufferedImage[] ball;
 
     public static void init(){
-        Util.SpriteSheet sheet = new Util.SpriteSheet(Util.ImageLoader.loadImage("../resources/sprite.png")); //Link to the spriteSheet
-        Util.SpriteSheet golfsheet = new Util.SpriteSheet(Util.ImageLoader.loadImage("../resources/golfball.png")); //Link to golf ball sheet
+        Util.SpriteSheet sheet = new Util.SpriteSheet(Util.ImageLoader.loadImage("resources/sprite.png")); //Link to the spriteSheet
+        Util.SpriteSheet golfsheet = new Util.SpriteSheet(Util.ImageLoader.loadImage("resources/golfball.png")); //Link to golf ball sheet
 
         //Cropping every unit from the sprite sheet
         sand=sheet.crop(0,0,width,height);
         stone=sheet.crop(width,0,width,height);
         water=sheet.crop(width*2,0,width,height);
         grass=sheet.crop(width*3,0,width,height);
+        hole=sheet.crop(0,height,width,height);
         ball=new BufferedImage[]{golfsheet.crop(0, 0, width/2, height/2), golfsheet.crop(width/2, 0, width/2, height/2)};
-        /*try {
+        try {
             menu=ImageIO.read(new File("resources/menu.png"));
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 }

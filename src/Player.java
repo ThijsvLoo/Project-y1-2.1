@@ -9,7 +9,7 @@ public class Player extends Entity {
 
   public Player(BufferedImage[] image, float x, float y, int width, int height) {
     super(x, y, width, height);
-    this.world = new World("../resources/world1.txt");
+    this.world = new World("resources/world1.txt");
     this.sprite = image;
     this.iterator = 0;
     this.engine = new Physics(this.world.width, this.world.height);

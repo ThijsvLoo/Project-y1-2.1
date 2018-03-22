@@ -31,7 +31,7 @@ here the rendering is called and the tick method + the path to our world is give
 
     public GameState(Handler handler){
         super(handler);
-        this.world=new World("../resources/world1.txt");
+        this.world=new World("resources/world1.txt");
     }
 
     @Override
