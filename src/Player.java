@@ -43,10 +43,10 @@ public class Player extends Entity {
 
     double angle = Math.atan((mouseY - this.y)/(mouseX - this.x));
     if(mouseY-this.y>0 && mouseX-this.x<0)
-        angle = Math.PI/2-Math.atan((mouseY - this.y)/(mouseX - this.x));
+        angle = Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
     else if(mouseY-this.y<0 && mouseX-this.x<0)
         angle = Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
-        
+
     this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
     this.moving = true;
   }

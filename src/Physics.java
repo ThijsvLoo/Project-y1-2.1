@@ -72,7 +72,7 @@ public class Physics {
 											*velocityAr[1]*Math.sin(Math.atan(yHeight))/Math.cos(Math.atan(yHeight)))/2);
 
 										if(velocityAr[1]>0 && velocityAr[0]<0)
-											this.velocityAngle=Math.PI/2-Math.atan(velocityAr[1]/velocityAr[0]);
+											this.velocityAngle=Math.PI+Math.atan(velocityAr[1]/velocityAr[0]);
 										else if(velocityAr[1]<0 && velocityAr[0]<0)
 											this.velocityAngle=Math.PI+Math.atan(velocityAr[1]/velocityAr[0]);
 										else
