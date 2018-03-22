@@ -36,6 +36,9 @@ public class Display {
         canvas.setMaximumSize(new Dimension(width,height));
         canvas.setMinimumSize(new Dimension(width,height));
 
+        //Menu
+        JPanel panel = new JPanel();
+
 
 
         frame.add(canvas);
@@ -48,5 +51,8 @@ public class Display {
     public Canvas getCanvas() {
         return canvas;
     }
+    public Frame getFrame(){ return frame;}
 
 }
+
+

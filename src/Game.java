@@ -1,7 +1,5 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.nio.file.Paths;
 
 public class Game implements Runnable {
 
@@ -11,30 +9,45 @@ public class Game implements Runnable {
     private boolean running = false;
     public String title;
 
-    private nanos_Per_Second = 1000000000;
+    private int  nanos_Per_Second = 1000000000;
 
     private Thread thread;
     public State gameState;
+    public State menuState;
+    private MouseManager mouseManager;
+    private Handler handler;
     //Test
     Assets assets = new Assets();
 
     private BufferStrategy bs;
     private Graphics g;
 
+    public Game(){
+
+    }
     public Game(String title,int width,int height){
         this.title=title;
         this.width=width;
         this.height=height;
-        display = new Display(title,width,height);
+        mouseManager =new MouseManager();
+       // display = new Display(title,width,height);
     }
 
     //The initialization
     private void init(){
         display = new Display(title,width,height);
+
+        display.getFrame().addMouseListener(mouseManager);
+        display.getFrame().addMouseMotionListener(mouseManager);
+        display.getCanvas().addMouseListener(mouseManager);
+        display.getCanvas().addMouseMotionListener(mouseManager);
+
         Assets.init();
 
-        gameState=new GameState();
-        State.setState(gameState);
+        handler= new Handler(this);
+        gameState=new GameState(handler);
+        menuState=new MenuState(handler);
+        State.setState(menuState);
 
     }
 
@@ -42,6 +55,7 @@ public class Game implements Runnable {
         if(State.getState() !=null) {
             State.getState().tick();                //If our state is not null(we have a state menu/game/etc) then we call the method tick
         }
+
     }
 
     private void render(){
@@ -115,5 +129,17 @@ public class Game implements Runnable {
             e.printStackTrace();
         }
 
+    }
+
+    public MouseManager getMouseManager(){
+        return mouseManager;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
     }
 }

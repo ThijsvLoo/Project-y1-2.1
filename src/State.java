@@ -13,14 +13,18 @@ public abstract class State {
     }  //returns the current state
 
     //CLASS
+    protected Handler handler;
 
-    public State(){
+    public State(Handler handler){
+        this.handler=handler;
 
     }
 
     public abstract void tick();
 
     public abstract void render(Graphics g);
+
+
 }
 
 class GameState extends State {
@@ -30,8 +34,8 @@ here the rendering is called and the tick method + the path to our world is give
  */
     private World world;
 
-    public GameState(){
-        super();
+    public GameState(Handler handler){
+        super(handler);
         world=new World("resources/world1.txt");
     }
 

@@ -1,5 +1,4 @@
-
-
+/*import java.awt.*;
 
 public class Player extends Entity {
 
@@ -21,7 +20,7 @@ public Player() {
 
 }
 
-public void render(Graphics.j){
+public void render(Graphics g){
   //TODO
 
 }
@@ -36,6 +35,7 @@ public move() {
 }
 
 public 
+*/
 
 
 
