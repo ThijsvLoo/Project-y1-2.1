@@ -11,25 +11,28 @@ public class Physics {
 
 	public double ballVelocity;
 	private double velocityAngle;
-	public double[] ballPosition;
+	public double[] ballPosition = new double[]{100, 100};
+	private double[] velocityAr = new double[]{0, 0};
 	private double leftBound, rightBound, frontBound, backBound;
 
-	public Physics(int width, int height) {
-		leftBound=0;
-		rightBound=width;
-		backBound=height;
-		frontBound=0;
+	public Physics(World world) {
+		leftBound=world.tileWidth;
+		rightBound=world.width - world.tileWidth;
+		backBound=world.height - world.tileHeight;
+		frontBound=world.tileHeight;
 	}
 
 	public void setInMotion(double velocity, double angle, double[] position) {
 		this.ballVelocity=velocity;
 		this.velocityAngle=angle;
 		this.ballPosition=position;
+		this.velocityAr = new double[]{velocity*Math.cos(velocityAngle)*Math.cos(Math.atan(xHeight)), velocity*Math.sin(velocityAngle)*Math.cos(Math.atan(yHeight))};
 	}
 
 	public void ballMotion() {
     /* The velocity array contains the Velocity of the x and y axis respectively */
-		double[] velocityAr = {ballVelocity*Math.cos(velocityAngle)*Math.cos(Math.atan(xHeight)), ballVelocity*Math.sin(velocityAngle)*Math.cos(Math.atan(yHeight))};
+		this.velocityAr[0] = ballVelocity*Math.cos(velocityAngle)*Math.cos(Math.atan(xHeight));
+		this.velocityAr[1] = ballVelocity*Math.sin(velocityAngle)*Math.cos(Math.atan(yHeight));
 
       /* The acceleration array contains the Velocity of the x and y axis respectively */
 		double[] accelerationAr = new double[2];
@@ -54,6 +57,8 @@ public class Physics {
 		velocityAr[0] += accelerationAr[0]*delta;
 		velocityAr[1] += accelerationAr[1]*delta;
 
+		collision();
+
             /* The equations of the position */
 		this.ballPosition[0] += velocityAr[0]*delta;
 		this.ballPosition[1] += velocityAr[1]*delta;
@@ -66,24 +71,14 @@ public class Physics {
 		this.velocityAngle=Math.atan(velocityAr[1]/velocityAr[0]);
 	}
 
-
-	public boolean isCollide() {
-		if(ballPosition[0]==rightBound || ballPosition[0]==leftBound || ballPosition[1]==frontBound || ballPosition[1]==backBound)
-			return true;
-		return false;
-	}
-
 	public void collision() {
-		if(isCollide()) {
-			if(ballPosition[0]==rightBound || ballPosition[0]==leftBound)
-				velocityAngle=-velocityAngle;
-			else if(ballPosition[0]==frontBound || ballPosition[0]==backBound)
-				velocityAngle=Math.PI-velocityAngle;
-			else if(ballPosition[0]==rightBound && ballPosition[1]==frontBound ||
-					ballPosition[0]==leftBound && ballPosition[1]==frontBound ||
-					ballPosition[0]==rightBound && ballPosition[1]==backBound ||
-					ballPosition[0]==leftBound && ballPosition[1]==backBound)
-				velocityAngle+=Math.PI;
+		if(ballPosition[0]<=rightBound || ballPosition[0]>=leftBound){
+			this.velocityAngle = -this.velocityAngle;
+			this.velocityAr[0] = -this.velocityAr[0];
+		}
+		if(ballPosition[1]>=frontBound || ballPosition[1]<=backBound){
+			this.velocityAngle = -this.velocityAngle;
+			this.velocityAr[1] = -this.velocityAr[1];
 		}
 	}
 
@@ -135,20 +130,9 @@ public class Physics {
 
 	public void reset(boolean position){
 		this.ballVelocity = 0;
-		this.ballPosition = new double[]{10, 10};
-	}
-
-	public static void main(String[] args) {
-		double[] position = {0,0};
-		Physics physics = new Physics(10, 10);
-		physics.setInMotion(10,Math.PI/4,position);
-		physics.setHeight();
-		while(physics.getVelocity()>0.5 ) {
-			physics.setFrictionC();
-			physics.ballMotion();
-			System.out.println(physics.getPosition()[0]+" , "+physics.getPosition()[1]);
-			System.out.println(physics.getAngle());
-			System.out.println(physics.getVelocity());
-		}
+		this.velocityAngle = 0;
+		this.velocityAr = new double[]{0, 0};
+		if(position)
+			this.ballPosition = new double[]{10, 10};
 	}
 }

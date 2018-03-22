@@ -17,7 +17,7 @@ public class Player extends Entity {
     this.world = new World(handler,"../resources/world1.txt");
     this.sprite = image;
     this.iterator = 0;
-    this.engine = new Physics(this.world.width, this.world.height);
+    this.engine = new Physics(world);
     this.moving = false;
     this.handler = handler;
   }
@@ -46,21 +46,20 @@ public class Player extends Entity {
   }
 
   public void move(){
-    this.engine.collision();
     this.engine.ballMotion();
     this.x = this.engine.ballPosition[0];
     this.y = this.engine.ballPosition[1];
-    if(this.engine.ballVelocity <= 0){
+    if(this.engine.ballVelocity <= 1){
       this.moving = false;
-      this.engine.reset(true);
+      this.engine.reset(false);
     }
   }
 
   public void reset(){
-    this.x = 10;
-    this.y = 10;
+    this.x = 100;
+    this.y = 100;
     this.moving = false;
-    this.engine.reset(false);
+    this.engine.reset(true);
   }
 
   public double getX(){
