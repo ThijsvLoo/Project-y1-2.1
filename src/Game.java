@@ -74,6 +74,8 @@ public class Game implements Runnable {
         if(ball.moving == false){
 
         }
+        g.setColor(Color.BLUE);
+        g.drawLine((int) ball.x, (int) ball.y, mouseManager.getMouseX(), mouseManager.getMouseY());
 
         //Draw end
         bs.show();

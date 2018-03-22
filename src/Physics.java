@@ -4,7 +4,7 @@ public class Physics {
 	private double height = 0;
 	private double xHeight = 0;
   	private	double yHeight = 0;
-  	private double frictionC=0.1;
+  	private double frictionC=10;
 	private final double grAcceleration = 9.81;
 	private final double ballMass=1;
 	private double delta = 1.0/60;
@@ -55,8 +55,8 @@ public class Physics {
 		velocityAr[1] += accelerationAr[1]*delta;
 
             /* The equations of the position */
-		this.ballPosition[0] += velocityAr[0]*delta ;
-		this.ballPosition[1] += velocityAr[1]*delta ;
+		this.ballPosition[0] += velocityAr[0]*delta;
+		this.ballPosition[1] += velocityAr[1]*delta;
 
 		this.ballVelocity=Math.sqrt(velocityAr[0]*velocityAr[0]+velocityAr[1]*velocityAr[1]
 											+(velocityAr[0]*Math.sin(Math.atan(xHeight))/Math.cos(Math.atan(xHeight))
@@ -64,7 +64,6 @@ public class Physics {
 											+velocityAr[1]*Math.sin(Math.atan(yHeight))/Math.cos(Math.atan(yHeight))
 											*velocityAr[1]*Math.sin(Math.atan(yHeight))/Math.cos(Math.atan(yHeight)))/2);
 		this.velocityAngle=Math.atan(velocityAr[1]/velocityAr[0]);
-
 	}
 
 
@@ -134,7 +133,7 @@ public class Physics {
 		return frictionC;
 	}
 
-	public void reset(){
+	public void reset(boolean position){
 		this.ballVelocity = 0;
 		this.ballPosition = new double[]{10, 10};
 	}

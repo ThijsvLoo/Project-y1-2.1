@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.lang.Math;
 
@@ -13,7 +14,7 @@ public class Player extends Entity {
   public Player(Handler handler, BufferedImage[] image, float x, float y, int width, int height) {
     super(x, y, width, height);
     this.handler=handler;
-    this.world = new World(handler,"resources/world1.txt");
+    this.world = new World(handler,"../resources/world1.txt");
     this.sprite = image;
     this.iterator = 0;
     this.engine = new Physics(this.world.width, this.world.height);
@@ -39,7 +40,7 @@ public class Player extends Entity {
 
   public void hit(int mouseX, int mouseY){
     double vel = Math.sqrt(Math.pow((mouseX - this.x), 2) + Math.pow((mouseY - this.y), 2));
-    double angle = Math.atan(mouseY/mouseX);
+    double angle = Math.atan((mouseY - this.y)/(mouseX - this.x));
     this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
     this.moving = true;
   }
@@ -49,15 +50,17 @@ public class Player extends Entity {
     this.engine.ballMotion();
     this.x = this.engine.ballPosition[0];
     this.y = this.engine.ballPosition[1];
-    if(this.engine.ballVelocity == 0)
+    if(this.engine.ballVelocity <= 0){
       this.moving = false;
+      this.engine.reset(true);
+    }
   }
 
   public void reset(){
     this.x = 10;
     this.y = 10;
     this.moving = false;
-    this.engine.reset();
+    this.engine.reset(false);
   }
 
   public double getX(){
