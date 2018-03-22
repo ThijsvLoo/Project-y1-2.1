@@ -7,9 +7,12 @@ public class World {
     private int[][] tiles;
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private Entity.Manager entityManager;
+    public int tileWidth, tileHeight;
 
     public World(String path){
         loadWorld(path);
+        this.tileWidth = Tile.TILE_WIDTH/(1920/screenSize.width);
+        this.tileHeight = Tile.TILE_HEIGHT/(1080/screenSize.height);
     }
 
     public void tick(){}
@@ -17,7 +20,7 @@ public class World {
     public void render(Graphics g){
       for(int y=0;y<height;y++){
           for(int x=0;x<width;x++){
-              getTile(x,y).render(g,x*Tile.TILE_WIDTH/(1920/screenSize.width),y*Tile.TILE_HEIGHT/(1080/screenSize.height));     //A loop that is getting the current tile from the getTile method in order to
+              getTile(x,y).render(g,x*tileWidth,y*tileHeight);//A loop that is getting the current tile from the getTile method in order to
           }                                                                         //render it ...Draws the map
       }
     }

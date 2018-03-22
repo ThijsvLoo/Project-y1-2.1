@@ -13,7 +13,7 @@ public class Player extends Entity {
     this.sprite = image;
     this.iterator = 0;
     this.engine = new Physics(this.world.width, this.world.height);
-    this.engine.setInMotion(100,Math.PI/4,new double[]{x, y});
+    this.engine.setInMotion(5,Math.PI/4,new double[]{x, y});
   }
 
   public void render(Graphics g){
@@ -28,7 +28,7 @@ public class Player extends Entity {
 
   public void move() {
     this.engine.ballMotion();
-    this.x = this.engine.ballPosition[0];
-    this.y = this.engine.ballPosition[1];
+    this.x = this.engine.ballPosition[0]*this.world.tileWidth;
+    this.y = this.engine.ballPosition[1]*this.world.tileHeight;
   }
 }
