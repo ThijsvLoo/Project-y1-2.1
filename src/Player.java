@@ -34,6 +34,7 @@ public class Player extends Entity {
           hit(handler.getGame().getMouseManager().getMouseX(), handler.getGame().getMouseManager().getMouseY());
     if(handler.getGame().getMouseManager().isRightPressed())
         reset();
+
     if(this.y>5*world.tileHeight && this.y<9*world.tileHeight
     && this.x>22*world.tileWidth &&  this.x<28*world.tileWidth  ||
     this.y>9*world.tileHeight && this.y<13*world.tileHeight
@@ -56,9 +57,10 @@ public class Player extends Entity {
         angle = Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
     else if(mouseY-this.y<0 && mouseX-this.x<0)
         angle = Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
-
+    else if(mouseY-this.y<0 && mouseX-this.x>0)
+        angle = 2*Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
     this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
-    this.engine.setHeight();
+    // this.engine.setHeight();
     this.moving = true;
   }
 
@@ -69,9 +71,7 @@ public class Player extends Entity {
     this.y = this.engine.ballPosition[1];
 
 
-    if(this.engine.ballVelocity <= 4 &&
-    Math.sqrt(this.engine.getAcceleration()[0]*this.engine.getAcceleration()[0]+
-    this.engine.getAcceleration()[1]*this.engine.getAcceleration()[1])<1000 ){
+    if(this.engine.ballVelocity < 5){
       this.moving = false;
       this.engine.reset(false);
     }
@@ -83,7 +83,7 @@ public class Player extends Entity {
 
   public void reset(){
     this.x = 80;
-    this.y = 450;
+    this.y = 80;
     this.moving = false;
     this.engine.reset(true);
   }

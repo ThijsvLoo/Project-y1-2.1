@@ -116,9 +116,16 @@ public class Physics {
 	}
 
 	public void setHeight() {
-		this.height = Math.cos(ballPosition[0])*Math.sin(ballPosition[1]);
-		this.xHeight = -Math.sin(ballPosition[0]*Math.sin(ballPosition[1]));
-		this.yHeight = Math.cos(ballPosition[0]*Math.cos(ballPosition[1]));
+		if(this.y>5*world.tileHeight && this.y<9*world.tileHeight
+    && this.x>22*world.tileWidth &&  this.x<28*world.tileWidth  ||
+    this.y>9*world.tileHeight && this.y<13*world.tileHeight
+    && this.x>4*world.tileWidth &&  this.x<9*world.tileWidth)
+			this.height=-1;
+		else {
+			this.height = Math.cos(ballPosition[0])*Math.sin(ballPosition[1]);
+			this.xHeight = -Math.sin(ballPosition[0]*Math.sin(ballPosition[1]));
+			this.yHeight = Math.cos(ballPosition[0]*Math.cos(ballPosition[1]));
+	  }
 	}
 
 	public double getHeight() {

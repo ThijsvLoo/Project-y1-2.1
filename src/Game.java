@@ -47,7 +47,7 @@ public class Game implements Runnable {
         handler= new Handler(this);
         gameState=new GameState(handler);
         menuState=new GameState(handler);
-        ball = new Player(handler, Assets.ball,80, 450, 16, 16);
+        ball = new Player(handler, Assets.ball,80, 80, 16, 16);
         State.setState(gameState);
 
     }
