@@ -43,13 +43,11 @@ public class Game implements Runnable {
 
         handler= new Handler(this);
         gameState=new GameState(handler);
-<<<<<<< HEAD
-        menuState=new GameState(handler);
-        ball = new Player(handler, Assets.ball,80, 80, 16, 16);
-=======
         menuState=new MenuState(handler);
->>>>>>> a033022386ec7371ab718410ddf293fcb8428c64
+
         State.setState(gameState);
+
+        State.setState(menuState);
         handler.world.init();
     }
 
@@ -122,7 +120,7 @@ public class Game implements Runnable {
     public synchronized void stop(){
         if(!running){return;}                       //Checking if the game is stopped
         g.setColor(Color.RED);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 32)); 
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 32));
         g.drawString("CONGRATULATIONS!", 100, 400);
         running = false;
         try {

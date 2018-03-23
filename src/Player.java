@@ -50,7 +50,9 @@ public class Player extends Entity {
 
   public void hit(int mouseX, int mouseY){
     double vel = Math.sqrt(Math.pow((mouseX - this.x), 2) + Math.pow((mouseY - this.y), 2));
-
+            if(vel>600){
+              vel=600;
+            }
     double angle = Math.atan((mouseY - this.y)/(mouseX - this.x));
     if(mouseY-this.y>0 && mouseX-this.x<0)
         angle = Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
@@ -59,11 +61,8 @@ public class Player extends Entity {
     else if(mouseY-this.y<0 && mouseX-this.x>0)
         angle = 2*Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
     this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
-<<<<<<< HEAD
     // this.engine.setHeight();
-=======
-    //this.engine.setHeight();
->>>>>>> a033022386ec7371ab718410ddf293fcb8428c64
+
     this.moving = true;
   }
 
@@ -74,18 +73,12 @@ public class Player extends Entity {
     this.y = this.engine.ballPosition[1];
 
 
-<<<<<<< HEAD
     if(this.engine.ballVelocity < 5){
-=======
-    if(this.engine.ballVelocity <= 4){ /*&&
-    Math.sqrt(this.engine.getAcceleration()[0]*this.engine.getAcceleration()[0]+
-    this.engine.getAcceleration()[1]*this.engine.getAcceleration()[1])<1000 ){
-      */
->>>>>>> a033022386ec7371ab718410ddf293fcb8428c64
-      this.moving = false;
-      this.engine.reset(false);
-    }
+      this.moving=false;
+
+
   }
+}
 
   public void gameOver(){
     State.setState(handler.getGame().menuState);
