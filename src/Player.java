@@ -31,8 +31,10 @@ public class Player extends Entity {
     if(handler.getGame().getMouseManager().isLeftPressed())
       if(this.moving == false)
           hit(handler.getGame().getMouseManager().getMouseX(), handler.getGame().getMouseManager().getMouseY());
-    if(handler.getGame().getMouseManager().isRightPressed())
-        reset();
+    if(handler.getGame().getMouseManager().isRightPressed()) {
+      reset();
+      State.setState(handler.getGame().menuState);
+    }
     if(this.y>5*world.tileHeight && this.y<9*world.tileHeight
     && this.x>22*world.tileWidth &&  this.x<28*world.tileWidth  ||
     this.y>9*world.tileHeight && this.y<13*world.tileHeight
@@ -48,17 +50,18 @@ public class Player extends Entity {
   }
 
   public void hit(int mouseX, int mouseY){
-    double vel = Math.sqrt(Math.pow((mouseX - this.x), 2) + Math.pow((mouseY - this.y), 2));
+      double vel = Math.sqrt(Math.pow((mouseX - this.x), 2) + Math.pow((mouseY - this.y), 2));
+      if(vel > 500) vel = 500;
 
-    double angle = Math.atan((mouseY - this.y)/(mouseX - this.x));
-    if(mouseY-this.y>0 && mouseX-this.x<0)
-        angle = Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
-    else if(mouseY-this.y<0 && mouseX-this.x<0)
-        angle = Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
+      double angle = Math.atan((mouseY - this.y) / (mouseX - this.x));
+      if (mouseY - this.y > 0 && mouseX - this.x < 0)
+        angle = Math.PI + Math.atan((mouseY - this.y) / (mouseX - this.x));
+      else if (mouseY - this.y < 0 && mouseX - this.x < 0)
+        angle = Math.PI + Math.atan((mouseY - this.y) / (mouseX - this.x));
 
-    this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
-    //this.engine.setHeight();
-    this.moving = true;
+      this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
+      //this.engine.setHeight();
+      this.moving = true;
   }
 
   public void move(){
