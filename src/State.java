@@ -1,4 +1,8 @@
 import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.ImageIO;
+
 
 public abstract class State {
 
@@ -63,9 +67,23 @@ here the rendering is called and the tick method + the path to our world is give
 }
 
 class MenuState extends State {
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    BufferedImage scaledMenu;
+
+    public BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) { //taken from: https://stackoverflow.com/a/35637914
+        BufferedImage scaledImage = null;
+        if (imageToScale != null) {
+            scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
+            Graphics2D graphics2D = scaledImage.createGraphics();
+            graphics2D.drawImage(imageToScale, 0, 0, dWidth, dHeight, null);
+            graphics2D.dispose();
+        }
+        return scaledImage;
+    }
 
     public MenuState(Handler handler){
         super(handler);
+        scaledMenu = scale(Assets.menu, screenSize.height, screenSize.width);
     }
     @Override
     public void tick() {
@@ -89,6 +107,6 @@ class MenuState extends State {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.menu,0,0,1920,1080,null);
+        g.drawImage(scaledMenu,0,0,screenSize.width,screenSize.height,null);
     }
 }
