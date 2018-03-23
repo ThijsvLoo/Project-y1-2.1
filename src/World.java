@@ -9,6 +9,8 @@ public class World {
     private Entity.Manager entityManager;
     public int tileWidth, tileHeight;
     private Handler handler;
+    public Player ball;
+    public Physics engine;
 
     public World(Handler handler,String path){
         loadWorld(path);
@@ -18,17 +20,23 @@ public class World {
         System.out.println(screenSize);
     }
 
+    public void init(){
+        this.ball = new Player(handler, Assets.ball,80, 450, 16, 16);
+    }
+
     public void tick(){
-
-
+        this.ball.tick();
     }
 
     public void render(Graphics g){
-      for(int y=0;y<height;y++){
+        for(int y=0;y<height;y++){
           for(int x=0;x<width;x++){
               getTile(x,y).render(g,x*tileWidth,y*tileHeight);//A loop that is getting the current tile from the getTile method in order to
           }                                                                         //render it ...Draws the map
-      }
+        }
+        g.setColor(Color.BLUE);
+        g.drawLine((int) (ball.x + ball.width/2), (int) (ball.y + ball.height/2), this.handler.getMouseManager().getMouseX(), this.handler.getMouseManager().getMouseY());
+        this.ball.render(g);
     }
 
     public Tile getTile(int x,int y) {

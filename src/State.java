@@ -33,7 +33,7 @@ here the rendering is called and the tick method + the path to our world is give
     public GameState(Handler handler){
         super(handler);
         this.world=new World(handler,"../resources/world1.txt");
-
+        handler.setWorld(this.world);
     }
 
     @Override
@@ -41,8 +41,9 @@ here the rendering is called and the tick method + the path to our world is give
         isGameOver();
         if(end>0){
             System.out.println("meow");
-            handler.getPhysics().reset(false);
-            System.exit(0);
+            State.setState(handler.getGame().menuState);
+            //handler.getPhysics().reset(false);
+            //System.exit(0);
         }
 
         world.tick();
