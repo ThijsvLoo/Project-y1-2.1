@@ -32,7 +32,7 @@ here the rendering is called and the tick method + the path to our world is give
 
     public GameState(Handler handler){
         super(handler);
-        this.world=new World(handler,"../resources/world1.txt");
+        this.world=new World(handler,"resources/world1.txt");
         handler.setWorld(this.world);
     }
 
@@ -40,8 +40,8 @@ here the rendering is called and the tick method + the path to our world is give
     public void tick() {
         isGameOver();
         if(end>0){
-            System.out.println("meow");
-            State.setState(handler.getGame().menuState);
+
+           // State.setState(handler.getGame().menuState);
             //handler.getPhysics().reset(false);
             //System.exit(0);
         }
@@ -71,10 +71,15 @@ class MenuState extends State {
     public void tick() {
         if(handler.getMouseManager().isLeftPressed())
             System.out.println(handler.getMouseManager().getMouseX() + " " + handler.getMouseManager().getMouseY());
-        if((handler.getMouseManager().getMouseY()>424 && handler.getMouseManager().getMouseY()<486)
-            &&(handler.getMouseManager().getMouseX()>661&&handler.getMouseManager().getMouseX()<1260)
+        if((handler.getMouseManager().getMouseY()>419 && handler.getMouseManager().getMouseY()<528)
+            &&(handler.getMouseManager().getMouseX()>142&&handler.getMouseManager().getMouseX()<584)
              && handler.getMouseManager().isLeftPressed()){
             State.setState(handler.getGame().gameState);
+        }
+        else if((handler.getMouseManager().getMouseY()>575 && handler.getMouseManager().getMouseY()<685)
+                &&(handler.getMouseManager().getMouseX()>140&&handler.getMouseManager().getMouseX()<590)
+                && handler.getMouseManager().isLeftPressed()){
+            System.exit(0);
         }
     }
 

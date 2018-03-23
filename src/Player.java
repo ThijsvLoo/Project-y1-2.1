@@ -79,6 +79,7 @@ public class Player extends Entity {
 
   public void gameOver(){
     State.setState(handler.getGame().menuState);
+    reset();
     //this.handler.getGame().stop();
   }
 
