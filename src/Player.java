@@ -14,12 +14,11 @@ public class Player extends Entity {
   public Player(Handler handler, BufferedImage[] image, float x, float y, int width, int height) {
     super(x, y, width, height);
     this.handler=handler;
-    this.world = new World(handler,"../resources/world1.txt");
+    this.world = handler.getWorld();
     this.sprite = image;
     this.iterator = 0;
-    this.engine = new Physics(world);
+    this.engine = new Physics(this.world);
     this.moving = false;
-    this.handler = handler;
   }
 
   public void render(Graphics g){
@@ -60,7 +59,11 @@ public class Player extends Entity {
     else if(mouseY-this.y<0 && mouseX-this.x>0)
         angle = 2*Math.PI+Math.atan((mouseY - this.y)/(mouseX - this.x));
     this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
+<<<<<<< HEAD
     // this.engine.setHeight();
+=======
+    //this.engine.setHeight();
+>>>>>>> a033022386ec7371ab718410ddf293fcb8428c64
     this.moving = true;
   }
 
@@ -71,14 +74,22 @@ public class Player extends Entity {
     this.y = this.engine.ballPosition[1];
 
 
+<<<<<<< HEAD
     if(this.engine.ballVelocity < 5){
+=======
+    if(this.engine.ballVelocity <= 4){ /*&&
+    Math.sqrt(this.engine.getAcceleration()[0]*this.engine.getAcceleration()[0]+
+    this.engine.getAcceleration()[1]*this.engine.getAcceleration()[1])<1000 ){
+      */
+>>>>>>> a033022386ec7371ab718410ddf293fcb8428c64
       this.moving = false;
       this.engine.reset(false);
     }
   }
 
   public void gameOver(){
-    this.handler.getGame().stop();
+    State.setState(handler.getGame().menuState);
+    //this.handler.getGame().stop();
   }
 
   public void reset(){

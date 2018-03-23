@@ -7,7 +7,6 @@ public class Game implements Runnable {
 
     private int width,height;
     private boolean running = false;
-    public boolean end=false;
     public String title;
 
     private int nanos_Per_Second = 1000000000;
@@ -17,13 +16,11 @@ public class Game implements Runnable {
     public State menuState;
     private MouseManager mouseManager;
     private Handler handler;
-    private World world;
     //Test
     Assets assets = new Assets();
 
     private BufferStrategy bs;
     private Graphics g;
-    private Player ball;
 
     public Game(String title,int width,int height){
         this.title=title;
@@ -46,18 +43,20 @@ public class Game implements Runnable {
 
         handler= new Handler(this);
         gameState=new GameState(handler);
+<<<<<<< HEAD
         menuState=new GameState(handler);
         ball = new Player(handler, Assets.ball,80, 80, 16, 16);
+=======
+        menuState=new MenuState(handler);
+>>>>>>> a033022386ec7371ab718410ddf293fcb8428c64
         State.setState(gameState);
-
+        handler.world.init();
     }
 
     private void tick(){
         if(State.getState() !=null) {
             State.getState().tick();                //If our state is not null(we have a state menu/game/etc) then we call the method tick
         }
-        ball.tick();
-
     }
 
     private void render(){
@@ -73,14 +72,6 @@ public class Game implements Runnable {
         if(State.getState() !=null) {
             State.getState().render(g);                          //If our state isnt null then we call the rendering method
         }
-
-        ball.render(g);
-        if(ball.moving == false){
-
-        }
-        g.setColor(Color.BLUE);
-        g.drawLine((int) ball.x, (int) ball.y, mouseManager.getMouseX(), mouseManager.getMouseY());
-
         //Draw end
         bs.show();
         g.dispose();
@@ -130,13 +121,15 @@ public class Game implements Runnable {
 
     public synchronized void stop(){
         if(!running){return;}                       //Checking if the game is stopped
+        g.setColor(Color.RED);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 32)); 
+        g.drawString("CONGRATULATIONS!", 100, 400);
         running = false;
         try {
             thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     public MouseManager getMouseManager(){
@@ -149,8 +142,5 @@ public class Game implements Runnable {
 
     public int getHeight(){
         return height;
-    }
-    public Player getBall(){
-        return ball;
     }
 }

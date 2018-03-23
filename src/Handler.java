@@ -1,12 +1,10 @@
 public class Handler {
-        private Game game;
-        private World world;
-        private Physics physics;
+        public Game game;
+        public World world;
+        public Physics physics;
 
         public Handler(Game game) {
             this.game=game;
-
-
         }
 
         public MouseManager getMouseManager() {
@@ -14,7 +12,7 @@ public class Handler {
         }
 
         public Physics getPhysics(){
-            return game.getBall().getEngine();
+            return world.ball.getEngine();
         }
 
         public int getWidth() {
