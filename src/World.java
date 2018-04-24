@@ -11,6 +11,9 @@ public class World {
     private Handler handler;
     public Player ball;
     public Physics engine;
+    private double vectorx = 0;
+    private double vectory = 0;
+    private int allowedDraw=500;
 
     public World(Handler handler,String path){
         loadWorld(path);
@@ -35,7 +38,15 @@ public class World {
           }                                                                         //render it ...Draws the map
         }
         g.setColor(Color.BLUE);
-        g.drawLine((int) (ball.x + ball.width/2), (int) (ball.y + ball.height/2), this.handler.getMouseManager().getMouseX(), this.handler.getMouseManager().getMouseY());
+       /* if(Math.sqrt(Math.pow(this.handler.getMouseManager().getMouseX(),2)+(Math.pow(this.handler.getMouseManager().getMouseY(),2)))-(ball.x + ball.width/2)>500){
+            double angle = Math.atan(this.handler.getMouseManager().getMouseY()/this.handler.getMouseManager().getMouseX());
+            vectory=allowedDraw*Math.sin(angle);
+            vectorx=allowedDraw*Math.cos(angle);
+            g.drawLine((int) (ball.x + ball.width / 2), (int) (ball.y + ball.height / 2),(int) (ball.x+ball.width/2)+500,(int)(ball.y + ball.height / 2)+500);
+        }
+        else {*/
+            g.drawLine((int) (ball.x + ball.width / 2), (int) (ball.y + ball.height / 2), this.handler.getMouseManager().getMouseX(), this.handler.getMouseManager().getMouseY());
+       // }
         this.ball.render(g);
     }
 

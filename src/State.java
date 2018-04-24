@@ -1,4 +1,8 @@
 import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.ImageIO;
+
 
 public abstract class State {
 
@@ -32,7 +36,7 @@ here the rendering is called and the tick method + the path to our world is give
 
     public GameState(Handler handler){
         super(handler);
-        this.world=new World(handler,"../resources/world1.txt");
+        this.world=new World(handler,"resources/world1.txt");
         handler.setWorld(this.world);
     }
 
@@ -40,8 +44,8 @@ here the rendering is called and the tick method + the path to our world is give
     public void tick() {
         isGameOver();
         if(end>0){
-            System.out.println("meow");
-            State.setState(handler.getGame().menuState);
+
+           // State.setState(handler.getGame().menuState);
             //handler.getPhysics().reset(false);
             //System.exit(0);
         }
@@ -63,23 +67,46 @@ here the rendering is called and the tick method + the path to our world is give
 }
 
 class MenuState extends State {
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    BufferedImage scaledMenu;
+
+    public BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight) { //taken from: https://stackoverflow.com/a/35637914
+        BufferedImage scaledImage = null;
+        if (imageToScale != null) {
+            scaledImage = new BufferedImage(dWidth, dHeight, imageToScale.getType());
+            Graphics2D graphics2D = scaledImage.createGraphics();
+            graphics2D.drawImage(imageToScale, 0, 0, dWidth, dHeight, null);
+            graphics2D.dispose();
+        }
+        return scaledImage;
+    }
 
     public MenuState(Handler handler){
         super(handler);
+        scaledMenu = scale(Assets.menu, screenSize.height, screenSize.width);
     }
     @Override
     public void tick() {
-        if(handler.getMouseManager().isLeftPressed())
-            System.out.println(handler.getMouseManager().getMouseX() + " " + handler.getMouseManager().getMouseY());
-        if((handler.getMouseManager().getMouseY()>424 && handler.getMouseManager().getMouseY()<486)
-            &&(handler.getMouseManager().getMouseX()>661&&handler.getMouseManager().getMouseX()<1260)
+       /* if(handler.getMouseManager().isLeftPressed())
+            System.out.println(handler.getMouseManager().getMouseX() + " " + handler.getMouseManager().getMouseY()); */
+        if((handler.getMouseManager().getMouseY()>419 && handler.getMouseManager().getMouseY()<528)
+            &&(handler.getMouseManager().getMouseX()>142&&handler.getMouseManager().getMouseX()<584)
              && handler.getMouseManager().isLeftPressed()){
+            try{
+                Thread.sleep(200);
+            }catch(InterruptedException e){
+            }
             State.setState(handler.getGame().gameState);
+        }
+        else if((handler.getMouseManager().getMouseY()>575 && handler.getMouseManager().getMouseY()<685)
+                &&(handler.getMouseManager().getMouseX()>140&&handler.getMouseManager().getMouseX()<590)
+                && handler.getMouseManager().isLeftPressed()){
+            System.exit(0);
         }
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.menu,0,0,1920,1080,null);
+        g.drawImage(scaledMenu,0,0,screenSize.width,screenSize.height,null);
     }
 }
