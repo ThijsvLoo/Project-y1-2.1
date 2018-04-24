@@ -71,5 +71,3 @@ class Hole extends Tile {
         super(Assets.hole,id);
     }
 }
-
-

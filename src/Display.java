@@ -8,7 +8,7 @@ public class Display {
     private String title;
     private int width,height;
 
-    
+
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -57,5 +57,3 @@ public class Display {
     public Frame getFrame(){ return frame;}
 
 }
-
-

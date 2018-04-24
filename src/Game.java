@@ -44,12 +44,6 @@ public class Game implements Runnable {
         handler= new Handler(this);
         gameState=new GameState(handler);
         menuState=new MenuState(handler);
-<<<<<<< HEAD
-
-        State.setState(gameState);
-
-=======
->>>>>>> 9629b47c8de7184708114b7060a62e3159dd3d70
         State.setState(menuState);
         handler.world.init();
     }

@@ -10,7 +10,7 @@ public class Launcher {
         Game game= new Game("Golf Game",screenSize.width,screenSize.height);
 
         try{
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("resources/music.wav"));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("../resources/music.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(999);

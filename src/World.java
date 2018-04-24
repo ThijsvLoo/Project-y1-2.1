@@ -24,7 +24,7 @@ public class World {
     }
 
     public void init(){
-        this.ball = new Player(handler, Assets.ball,80, 450, 16, 16);
+        this.ball = new Player(handler, Assets.ball,450, 450, 16, 16);
     }
 
     public void tick(){
