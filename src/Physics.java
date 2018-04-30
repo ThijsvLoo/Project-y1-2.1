@@ -45,6 +45,7 @@ public class Physics {
 
 	}
 
+// The method returns the array of the effective gravity force on the x,y position
 	public double[] gravity(double x, double y) {
 
 		double[] gravityArray = new double[2];
@@ -53,14 +54,16 @@ public class Physics {
 		return gravityArray;
 	}
 
+// The method returns the array of the effective friction force on the x,y position
 	public double[] friction(double x, double y) {
-		/* The frictionAr contains the friction for the x and y axis respectively */
+
 		double[] frictionAr = { friction * Math.cos(velocityAngle) * Math.cos(Math.atan(setHeight(x, y)[1])),
 				friction * Math.sin(velocityAngle) * Math.cos(Math.atan(setHeight(x, y)[2])) };
 
 		return frictionAr;
 	}
 
+// The method returns the array of the acceleration of the ball in the x,y position
 	public double[] accelerationArray(double x, double y) {
 		double[] accelArray = new double[2];
 
@@ -70,6 +73,7 @@ public class Physics {
 		return accelArray;
 	}
 
+// The method use the runge-kutta 4th order to calculate the velocity of the ball after a certain time step
 	public double[] rungeKutta4thVelocity(double x, double y) {
 		double h = delta;
 
@@ -93,6 +97,7 @@ public class Physics {
 		return tempVelocityAr;
 	}
 
+// The method uses the runge kutta 4th order method to calculate the position of the ball after a specific timestep
 	public void rungeKutta4thPosition() {
 		double h = delta;
 		double k01 = rungeKutta4thVelocity(ballPosition[0], ballPosition[1])[0];
@@ -129,28 +134,38 @@ public class Physics {
 			this.velocityAngle = Math.atan(velocityAr[1] / velocityAr[0]);
 	}
 
+// The method returns the position of the ball after a specific time step
 	public double[] ballMotion() {
 
+// We set the heigh function, in accordance to the golf course.
 		setHeight();
 
+// We set the friction coefficient at each position in the golf course.
 		setTempFrictionC();
 
+// We calculate the velocity of the ball over the x and y axis after a specific time step by using the runge kutta method
 		velocityAr[0] = rungeKutta4thVelocity(ballPosition[0], ballPosition[1])[0];
 		velocityAr[1] = rungeKutta4thVelocity(ballPosition[0], ballPosition[1])[1];
 
+// We calculate the x and y coordinate of the ball after a specific time step by using the runge kutta method
 		rungeKutta4thPosition();
 
+// We set the new scalar velocity of the ball
 		this.ballVelocity = Math.sqrt(velocityAr[0] * velocityAr[0] + velocityAr[1] * velocityAr[1]);
 
-
+// We set the new direction of the ball
 		setVelocityAngle();
 
+// We check if there is a collision
 		collision();
 
+// Retrun the position of the ball
 		return ballPosition;
 	}
 
+// This method check if a collision happens and change the course of the ball accordingly
 	public void collision() {
+
 		if (ballPosition[0] >= rightBound || ballPosition[0] <= leftBound) {
 
 			this.velocityAngle = Math.PI - this.velocityAngle;
@@ -180,6 +195,7 @@ public class Physics {
 	public double getAngle() {
 		return velocityAngle;
 	}
+
 
 	public double[] setHeight(double x, double y) {
 		double[] tempHeight = new double[3];
