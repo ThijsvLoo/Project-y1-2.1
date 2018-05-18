@@ -10,7 +10,7 @@ public class Physics {
 	private final double ballMass = 1;
 	private final double GRAVITY = -grAcceleration * ballMass;
 	private double friction = -frictionC * ballMass * grAcceleration;
-	private double delta = 1.0 / 60;
+	private double delta = 1.0/10 ;
 
 	public double ballVelocity;
 	double[] accelerationAr = new double[2];
@@ -35,6 +35,10 @@ public class Physics {
 		spline = new BSpline(world);
 	}
 
+	public void setSpline(BSpline spline) {
+		this.spline=spline;
+	}
+
 	public void setInMotion(double velocity, double angle, double[] position) {
 		this.ballVelocity = velocity;
 		this.velocityAngle = angle;
@@ -42,7 +46,7 @@ public class Physics {
 		this.velocityAr = new double[] { velocity * Math.cos(velocityAngle) * Math.cos(Math.atan(xHeight)),
 				velocity * Math.sin(velocityAngle) * Math.cos(Math.atan(yHeight)) };
 
-		double ang = Math.atan(velocityAr[1] / velocityAr[0]);
+//		double ang = Math.atan(velocityAr[1] / velocityAr[0]);
 
 		System.out.println("");
 
@@ -192,9 +196,13 @@ public class Physics {
 //		tempHeight[0] = Math.cos(Math.toRadians(x)) + Math.sin(Math.toRadians(y));
 //		tempHeight[1] = -Math.sin(Math.toRadians(x));
 //		tempHeight[2] = Math.cos(Math.toRadians(y));
-		tempHeight[0] = spline.height(x, y);
-		tempHeight[1] = spline.xHeight(0, spline.getNumberOfXKnots()-2, x);
-		tempHeight[2] = spline.yHeight(0, spline.getNumberOfYKnots()-2, y);
+//		tempHeight[0] = spline.height(x, y);
+//		tempHeight[1] = spline.xHeight(0, spline.getNumberOfXKnots()-2, x);
+//		tempHeight[2] = spline.yHeight(0, spline.getNumberOfYKnots()-2, y);
+
+		tempHeight[0] = 0;
+		tempHeight[1] = 0;
+		tempHeight[2] = 0;
 
 
 		return tempHeight;
@@ -205,9 +213,12 @@ public class Physics {
 //		this.xHeight = -Math.sin(Math.toRadians(ballPosition[0]));
 //		this.yHeight = Math.cos(Math.toRadians(ballPosition[1]));
 
-		this.height = spline.height(ballPosition[0],ballPosition[1]);
-		this.xHeight = spline.xHeight(0, spline.getNumberOfXKnots()-2, ballPosition[0]);
-		this.yHeight = spline.yHeight(0, spline.getNumberOfYKnots()-2, ballPosition[1]);
+		this.height = 0;
+		this.xHeight = 0;
+		this.yHeight = 0;
+//		this.height = spline.height(ballPosition[0],ballPosition[1]);
+//		this.xHeight = spline.xHeight(0, spline.getNumberOfXKnots()-2, ballPosition[0]);
+//		this.yHeight = spline.yHeight(0, spline.getNumberOfYKnots()-2, ballPosition[1]);
 	}
 
 	public double getHeight() {
@@ -253,6 +264,12 @@ public class Physics {
 	public double[] getGravity() {
 		return gravityAr;
 	}
+
+	public World getWorld() {
+		return world;
+	}
+
+
 
 	public static void main(String[] args) {
 		System.out.println(Math.cos(Math.toRadians(60)));

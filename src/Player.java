@@ -9,6 +9,8 @@ public class Player extends Entity {
   private static Physics engine;
   private static World world;
   private Handler handler;
+  private AI bot = new AI(this);
+  private boolean isAI = true;
   public static boolean moving;
 
   public Player(Handler handler, BufferedImage[] image, float x, float y, int width, int height) {
@@ -18,7 +20,7 @@ public class Player extends Entity {
     this.sprite = image;
     this.iterator = 0;
     this.engine = new Physics(this.world);
-    this.engine.setHeight();
+//    this.engine.setHeight();
     this.moving = false;
   }
 
@@ -29,9 +31,17 @@ public class Player extends Entity {
   public void tick() {     //This will update everything
     this.iterator++;
     if(this.iterator >= 2) this.iterator = 0;
-    if(handler.getGame().getMouseManager().isLeftPressed())
-      if(this.moving == false)
+    if(handler.getGame().getMouseManager().isLeftPressed()) {
+      if(this.moving == false) {
+    	  	if(isAI) {
+    	  		RunSimulations simulation = new RunSimulations(engine,4,10);
+    	  		simulation.simulate();
+    	  		bot.playBestHit(simulation);
+    	  	}else {
           hit(handler.getGame().getMouseManager().getMouseX(), handler.getGame().getMouseManager().getMouseY());
+    	  	}
+      }
+    }
     if(handler.getGame().getMouseManager().isRightPressed()) {
       reset();
       State.setState(handler.getGame().menuState);
@@ -54,7 +64,7 @@ public class Player extends Entity {
       double vel = Math.sqrt(Math.pow((mouseX - this.x), 2) + Math.pow((mouseY - this.y), 2));
       System.out.println("START");
       // double vel = 100;
-      if(vel > 800) vel = 800;
+      if(vel > 500) vel = 500;
 
       double angle = Math.atan((mouseY - this.y) / (mouseX - this.x));
       if (mouseY - this.y > 0 && mouseX - this.x < 0)
@@ -67,6 +77,14 @@ public class Player extends Entity {
       this.moving = true;
   }
 
+  public void hit(double vel, double angle){
+
+      this.engine.setInMotion(vel, angle, new double[]{this.x, this.y});
+      //this.engine.setHeight();
+      this.moving = true;
+
+  }
+
   public void move(){
 
     this.engine.ballMotion();
@@ -74,12 +92,18 @@ public class Player extends Entity {
     this.y = this.engine.ballPosition[1];
 
 
-    if(this.engine.ballVelocity <= 10 && Math.sqrt(this.engine.getGravity()[0]*this.engine.getGravity()[0]+
-    this.engine.getGravity()[1]*this.engine.getGravity()[1])<150  ){
+    if(stopMovingCondition() ){
 
       this.moving = false;
       this.engine.reset(false);
     }
+  }
+
+  public boolean stopMovingCondition() {
+	  if(this.engine.ballVelocity <= 10 && Math.sqrt(this.engine.getGravity()[0]*this.engine.getGravity()[0]+
+			    this.engine.getGravity()[1]*this.engine.getGravity()[1])<150  )
+		  return true;
+	  return false;
   }
 
   public void gameOver(){
@@ -101,4 +125,6 @@ public class Player extends Entity {
     return x;
   }
   public Physics getEngine(){return engine;}
+
+
 }
